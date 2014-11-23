@@ -49,14 +49,25 @@ footer.bottommenu {
 	margin-left: 2%;
 }
 
+.ambericon {
+	position: absolute;
+	margin-top: 20px;
+	height: 80px;
+	width: 80px;
+	background-image: url("../pics/amber.png");
+	background-size: 65px 65px;
+	background-position: 0 4px;
+	background-repeat: no-repeat;
+}
+
 .ambertypo>.a {
 /* 	text-shadow: 0 0 0.2em #ffcc33; */
 	margin-top: 0px;
-	margin-left: 0px;
+	margin-left: 70px;
 }
 
 .ambertypo>.mber {
-	margin-left: 49px;
+	margin-left: 120px;
 	margin-top: 11px;
 }
 
@@ -128,3 +139,23 @@ footer.bottommenu {
 	overflow: hidden;
 }
 
+.motorcontrolout {
+	background: #080808;
+	position: fixed;
+	left: 60%;
+	margin-top: -150px;
+	z-index: 11;
+	width: 400px;
+	height: 230px;
+	border: 12px solid #404040;
+	border-radius: 12px;
+	float: right;
+	overflow: hidden;
+}
+
+.motorcontrolin {
+	width: 96%;
+	height: 93%;
+	border: 8px solid #ffcc33;
+	border-radius: 1px;
+}

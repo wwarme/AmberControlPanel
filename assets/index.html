@@ -12,56 +12,14 @@
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/fx.js"></script>
 <script type="text/javascript" src="js/amber.js"></script>
+<script type="text/javascript" src="js/osmutils.js"></script>
 <script type="text/javascript" src="js/dummyshit.js"></script>
-<script type="text/javascript" src="tom.js"></script>
 <script type="text/javascript">
-
-// $(document).ready(function(){
-// 	$('.loginfade, .loginbody, .loginmaterial').toggle()
-	var map;
-var layer_mapnik;
-var layer_tah;
-var layer_markers;
-
-function drawmap() {
-    // Popup und Popuptext mit evtl. Grafik
-    var popuptext="";
-
-    OpenLayers.Lang.setCode('de');
-    
-    // Position und Zoomstufe der Karte
-    var lon = 13.63286;
-    var lat = 52.31954;
-    var zoom = 18;
-
-    map = new OpenLayers.Map('map', {
-        projection: new OpenLayers.Projection("EPSG:900913"),
-        displayProjection: new OpenLayers.Projection("EPSG:4326"),
-        controls: [
-            new OpenLayers.Control.Navigation(),
-            new OpenLayers.Control.LayerSwitcher()],
-        maxExtent:
-            new OpenLayers.Bounds(-20037508.34,-20037508.34,
-                                    20037508.34, 20037508.34),
-        numZoomLevels: 30,
-        maxResolution: 156543,
-        units: 'meters'
-    });
-
-    layer_mapnik = new OpenLayers.Layer.OSM.Mapnik("Mapnik");
-    layer_markers = new OpenLayers.Layer.Markers("Address", { projection: new OpenLayers.Projection("EPSG:4326"), 
-    	                                          visibility: true, displayInLayerSwitcher: false });
-
-    map.addLayers([layer_mapnik, layer_markers]);
-    jumpTo(lon, lat, zoom);
- 
-    // Position des Markers
-    addMarker(layer_markers, lon, lat, popuptext);
-}
-// });
-
+$(document).ready(function(){
+	$('.loginfade, .loginbody, .loginmaterial').toggle()
+	amber.locals.drawMap();
+});
 </script>
-
 </head>
 <body>
 	<div class="loginfade"></div>
@@ -90,9 +48,12 @@ function drawmap() {
 			</div>
 		</div>
 	</header>
-	<div class="center"></div>
+	<div class="center">
+	
+	</div>
 	<footer class="bottommenu">
 		<div class="ambertypo">
+			<div class="ambericon"></div>
 			<div class="a">A</div><div class="mber">MBER</div>
 		</div>
 		<div class="bottompanel"></div>
@@ -113,6 +74,12 @@ function drawmap() {
 						<p class="armalabel tachotarget">0</p>
 						<p class="unitlabel">km/h</p>
 					</div>
+				</div>
+			</div>
+		</div>
+		<div class="motorcontrolout">
+			<div class="motorcontrolin">
+				<div id="motorcontrol">
 				</div>
 			</div>
 		</div>

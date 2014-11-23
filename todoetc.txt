@@ -1,0 +1,9 @@
+kühlmittel temperatur 				- °C
+absoluter luftdruck im einlasskanal - kPa
+ansaugluft temperatur 				- °C
+luftdurchfluss 						- g/s
+fahrstrecke seit motor an 			- km
+kraftstoffdruck 					- kPa
+barometrischer umgebungsdruck 		- kPa
+tankfüllstand						- %
+gesamt km							- km
