@@ -1,4 +1,7 @@
 //var layerMapnik;
+/*
+ * TESTETETETETET
+ */
 //var layerMarkers;
 var amber = {};
 // amber.locals, containing all osm localization information 
