@@ -15,7 +15,22 @@ header.banner {
 	left: 0;
 	top: 5%;
 	background-color: #595959;
-	border-bottom: 1px solid #ffcc33;
+	border-bottom: 3px solid #ffcc33;
+	height: 5%;
+}
+
+.ridedata {
+	position: fixed;
+	text-align: center;
+	left: 50%;
+	margin-left: -25%;
+	top: 10%;
+	background: #080808;
+	border: 5px solid #ffcc33;
+	border-top: 1px solid #ffcc33;
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;
+	width: 50%;
 	height: 5%;
 }
 
@@ -158,4 +173,5 @@ footer.bottommenu {
 	height: 93%;
 	border: 8px solid #ffcc33;
 	border-radius: 1px;
+	text-align: center;
 }

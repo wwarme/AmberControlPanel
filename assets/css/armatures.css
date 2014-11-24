@@ -50,5 +50,107 @@
 	font-size: 15px;
 }
 
+.controlelement {
+	position: relative;
+	margin-top: 3%;
+	width: 30%;
+	height: 40%;
+	display: inline-block;
+	background-position: 10% 0;
+	background-repeat: no-repeat; 
+	background-size: 60% 45%;
+}
 
+.coolingliq {
+	background-image: url('../pics/cooling.png');
+	background-size: 50% 45%;
+}
+
+.airpress {
+	background-image: url('../pics/airpress.png');
+	background-size: 61% 43%;
+}
+
+.airtemp {
+	background-image: url('../pics/airtemp.png');
+	background-size: 55% 42%;
+}
+
+
+.airflow {
+	background-image: url('../pics/airflow.png');
+	background-size: 57% 45%;
+}
+
+.fuelpress {
+	background-image: url('../pics/fuelpress.png');
+	background-size: 53% 45%;
+}
+
+.enviropress {
+	background-image: url('../pics/weather.png');
+	background-size: 63% 47%;
+}
+
+.controlunit, .controllabel {
+	position: absolute;
+	width: 40px;
+	height: 30px;
+	margin-top: 10%;
+	color: #ffcc33;
+	margin-left: 65%;
+}
+
+.controllabel {
+	text-shadow: 0 0 0.2em #ffcc33;
+	margin-left: 10%;
+	margin-top: 40%;
+	width: 60px;
+}
+
+.ridelabel, .target_km, .target_kmall {
+	vertical-align: top;
+	color: #ffcc33;	
+	margin: 0;
+	display: inline-block;
+	font-size: 15px;
+	height: 30px;
+	margin-top: 5px;
+}
+
+.target_km, .target_kmall {
+	height: 30px;
+	margin: 0;
+	margin-right: 10px;
+	font-size: 20px;
+}
+
+.fuellabel {
+	display: inline-block;
+	margin: 0;
+	margin-left: 1%;
+	height: 35px;
+	width: 30px;
+	background-image: url('../pics/fuel.png');
+	background-position: 0 5px;
+	background-size: 20px 24px;
+	background-repeat: no-repeat;
+}
+
+.fuelout {
+	padding: 2px;
+	vertical-align: top;
+	display: inline-block;
+	width: 30%;
+	margin-top: 7px;
+	height: 13px;
+	overflow: hidden;
+	border: 1px solid #ffcc33;
+}
+
+.fuelin {
+	height: 100%;
+	width: 50%;
+	background: #ffcc33;
+}
 
