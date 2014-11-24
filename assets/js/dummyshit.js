@@ -3,7 +3,6 @@ $(document).ready(function(){
 		
 		$('.loginbody, .loginmaterial').fadeOut("slow", function(){
 			$('.loginfade').slideUp();
-			drawmap();
 		});
 		
 		setTimeout(function(){
