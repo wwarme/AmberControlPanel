@@ -4,13 +4,14 @@
 <meta charset="ISO-8859-1">
 <title>Amber Control Panel</title>
 <link rel="shortcut icon" href="pics/amber_gr.png" type="image/x-icon" />
-<!-- <script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script> -->
-<!-- <script type="text/javascript" src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script> -->
+<script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script>
+<script type="text/javascript" src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>
 <link rel="stylesheet" type="text/css" href="css/general.css">
 <link rel="stylesheet" type="text/css" href="css/armatures.css">
 <link rel="stylesheet" type="text/css" href="css/login.css">
 <link rel="stylesheet" type="text/css" href="css/carpicker.css">
 <link rel="stylesheet" type="text/css" href="css/notifier.css">
+<link rel="stylesheet" type="text/css" href="css/headermenu.css">
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/fx.js"></script>
 <script type="text/javascript" src="js/amber.js"></script>
@@ -61,6 +62,10 @@ $(document).ready(function(){
 	</div>
 			<!-- MAIN APP MARKUP BEGINS HERE -->
 	<header class="banner">
+		<div class="btnbar">
+			<button id="btnnotifier"></button>
+			<button id="btncarpicker"></button>
+		</div>
 		<div class="ridedata">
 			<div class="ridelabel">km Gesamt:</div>
 			<div class="ridelabel target_kmall">1.000.000</div>
@@ -77,7 +82,17 @@ $(document).ready(function(){
 		</div>
 	</header>
 	<div class="center">
-		<div class="notifier"></div>
+		<div class="notifier">
+			<ul id="noticontainer">
+				<li class="notification">rem ipsum dolorempor invidunt ut labore et dolore magna aliquyam erat, </li>
+				<li class="notification">rem ipsum dolorempor invidunt ut labore et dolore magna aliquyam erat, </li>
+				<li class="notification">rem ipsum dolorempor invidunt ut labore et dolore magna aliquyam erat, </li>
+				<li class="notification">rem ipsum dolorempor invidunt ut labore et dolore magna aliquyam erat, </li>
+				<li class="notification">rem ipsum dolorempor invidunt ut labore et dolore magna aliquyam erat, 
+				rem ipsum dolorempor invidunt ut labore et dolore magna aliquyam erat, </li>
+				<li class="notification">rem ipsum dolorempor invidunt ut labore et dolore magna al</li>
+			</ul>
+		</div>
 	</div>
 	<footer class="bottommenu">
 		<div class="ambertypo">

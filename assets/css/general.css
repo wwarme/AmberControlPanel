@@ -8,6 +8,10 @@ body {
 	background-image: url("../pics/backblack.jpg");
 }
 
+button, .car {
+	cursor: pointer;
+}
+
 header.banner {
 	z-index: 10;
 	position: fixed;

@@ -1,0 +1,31 @@
+
+.btnbar {
+	width: 80%;
+	height: 100%;
+	position: absolute; 
+	margin-left: 20px;
+	overflow: hidden;
+}
+
+button#btncarpicker,
+button#btnnotifier {
+	height: 100%;
+	width: 10%;
+	background: transparent;
+	border-style: none;
+	outline: none;
+	background-repeat: no-repeat;
+}
+
+button#btncarpicker {
+	background-image: url('../pics/car.png');
+	background-position: 50% 35%;
+	background-size: 50px 55px;
+}
+
+button#btnnotifier {
+	background-image: url('../pics/notify.png');
+	background-position: 50% 50%;
+	background-size: 30px 20px;
+}
+
