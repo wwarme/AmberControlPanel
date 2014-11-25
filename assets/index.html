@@ -4,11 +4,13 @@
 <meta charset="ISO-8859-1">
 <title>Amber Control Panel</title>
 <link rel="shortcut icon" href="pics/amber_gr.png" type="image/x-icon" />
-<script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script>
-<script type="text/javascript" src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script>
+<!-- <script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script> -->
+<!-- <script type="text/javascript" src="http://www.openstreetmap.org/openlayers/OpenStreetMap.js"></script> -->
 <link rel="stylesheet" type="text/css" href="css/general.css">
 <link rel="stylesheet" type="text/css" href="css/armatures.css">
 <link rel="stylesheet" type="text/css" href="css/login.css">
+<link rel="stylesheet" type="text/css" href="css/carpicker.css">
+<link rel="stylesheet" type="text/css" href="css/notifier.css">
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/fx.js"></script>
 <script type="text/javascript" src="js/amber.js"></script>
@@ -16,17 +18,33 @@
 <script type="text/javascript" src="js/dummyshit.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-// 	$('.loginfade, .loginbody, .loginmaterial').toggle()
+	$('.loginfade, .loginbody, .loginmaterial').toggle()
 	amber.locals.drawMap();
 });
 </script>
 </head>
 <body>
 	<div class="loginfade"></div>
-	<div class="loginmaterial"></div>
-	<div class="loginbody">
+	<div class="loginmaterial">
 		<div class="a">A</div><div class="mber">MBER</div>
-		<div class="loginsepline"></div>
+		<div class="loginsepline"></div>	
+	</div>
+	<div class="carpickerbody">
+		<div class="carpickerrow">
+			<p class="welcome">WÄHLEN SIE EIN FAHRZEUG:</p>
+		</div>
+		<div class="carpickerrow">
+			<div class="carpicker">
+				<ul class="carcontainer">
+					<li class="car"></li>
+					<li class="car"></li>
+					<li class="car"></li>
+					<li class="car"></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="loginbody">
 		<div class="loginrow">
 			<p class="welcome">WILLKOMMEN BEI AMBER</p>
 			<p class="info">status login...</p>
@@ -59,7 +77,7 @@ $(document).ready(function(){
 		</div>
 	</header>
 	<div class="center">
-	
+		<div class="notifier"></div>
 	</div>
 	<footer class="bottommenu">
 		<div class="ambertypo">

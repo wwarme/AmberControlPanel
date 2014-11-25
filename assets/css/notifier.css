@@ -1,0 +1,13 @@
+.notifier {
+	position: absolute;
+	width: 200px;
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+	background: #595959;
+	border-right: 3px solid #ffcc33;
+}
+
+.noticontainer {
+
+}

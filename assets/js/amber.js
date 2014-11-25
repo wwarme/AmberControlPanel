@@ -22,3 +22,7 @@ amber.locals.jumpTo;
 
 // amber.media, containing all demanded media data like screenshots and videos
 amber.media = {};
+// amber.car, containing all car data available
+amber.cars = [];
+// currently viewed car data
+amber.cars.Current;
