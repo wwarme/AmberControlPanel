@@ -19,8 +19,9 @@
 <script type="text/javascript" src="js/dummyshit.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-// 	$('.loginfade, .loginbody, .loginmaterial').toggle()
-	amber.locals.drawMap();
+	$('#mapview, #videosmall').toggle()
+	amber.locals.drawMaps('map');
+	amber.locals.drawMaps('mapview');
 });
 </script>
 </head>
@@ -77,7 +78,10 @@ $(document).ready(function(){
 			</div>
 		</div>
 		<div class="mapout">
-			<div id="map">
+			<div id="map"></div>
+			<div id="videosmall">
+				<video class="liveviewsmall" src="retard.webm" 
+				 autoplay loop type="video/webm"></video>
 			</div>
 		</div>
 	</header>
@@ -92,6 +96,13 @@ $(document).ready(function(){
 				rem ipsum dolorempor invidunt ut labore et dolore magna aliquyam erat, </li>
 				<li class="notification">rem ipsum dolorempor invidunt ut labore et dolore magna al</li>
 			</ul>
+		</div>
+		<div id="mapcontainer">
+			<div id="mapview"></div>
+		</div>
+		<div id="videocontainer">
+			<video class="liveview" src="retard.webm" 
+			controls autoplay loop type="video/webm"></video>
 		</div>
 	</div>
 	<footer class="bottommenu">

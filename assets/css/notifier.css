@@ -6,6 +6,7 @@
 	overflow-x: hidden;
 	background: #595959;
 	border-right: 3px solid #ffcc33;
+	z-index: 13;
 }
 
 #noticontainer {

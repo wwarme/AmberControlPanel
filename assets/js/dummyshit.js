@@ -28,23 +28,25 @@ $(document).ready(function(){
 	$('#btnnotifier').click(function(){
 		
 		if($('.notifier').attr('open')){
-			console.log("visible");
 			$('.notifier').animate({
 				"marginLeft":"-20%"
-			},"slow", function(){
+			},"fast", function(){
 				$('.notifier').removeAttr('open');
 			});
 		} else {
-			console.log("not visible");
 			$('.notifier').animate({
 				"marginLeft":"0"
-			},"slow").attr('open','');
+			},"fast").attr('open','');
 		}
-		
 	});
 	
 	$('#btncarpicker').click(function(){
 		$('.loginfade, .loginmaterial, .carpickerbody').fadeIn("fast");
+		amber.locals.drawMaps('map');
+		amber.locals.drawMaps('mapview');
 	});
 });
 
+function toggleView(){
+	$('#map, #videosmall, #mapview, #videocontainer').toggle();
+}
