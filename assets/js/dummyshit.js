@@ -18,9 +18,6 @@ $(document).ready(function(){
 					$('.tachoin').find('.armalabel, .unitlabel').css('color','#ffcc33');
 					$('.tachoin').find('.armalabel, .unitlabel').css('text-shadow','0 0 0.2em #ffcc33');
 				},3000);
-				setTimeout(function(){
-					$('.mapin').css('box-shadow','inset 0 0 35px 0px #ffcc33');
-				},4000);
 			});
 		});
 	});
@@ -42,8 +39,6 @@ $(document).ready(function(){
 	
 	$('#btncarpicker').click(function(){
 		$('.loginfade, .loginmaterial, .carpickerbody').fadeIn("fast");
-		amber.locals.drawMaps('map');
-		amber.locals.drawMaps('mapview');
 	});
 	
 	$('#btnswitchview').click(function(){
