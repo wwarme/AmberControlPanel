@@ -45,6 +45,10 @@ $(document).ready(function(){
 		amber.locals.drawMaps('map');
 		amber.locals.drawMaps('mapview');
 	});
+	
+	$('#btnswitchview').click(function(){
+		amber.ui.switchLiveView();
+	});
 });
 
 function toggleView(){

@@ -8,7 +8,7 @@ amber.locals.amberMapContainer;
 amber.locals.LayerMapnik = {};
 amber.locals.LayerMarkers = {};
 amber.locals.Marker = {};
-amber.locals.zoom = 14;
+amber.locals.zoom = 18;
 amber.locals.LongLat = {};
 // static for testing
 amber.locals.LongLat.lon = 13.63286;
@@ -31,6 +31,9 @@ amber.cars.Current;
 // amber.ui - UI functionalities of AMBER
 amber.ui = {};
 // ui functions - growing
+amber.ui.initLiveView;
+amber.ui.togglMaps;
+amber.ui.toggleLiveViews;
 amber.ui.switchLiveView;
 amber.ui.toggleCarPicker;
 amber.ui.toggleNotifier;

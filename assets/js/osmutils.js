@@ -103,7 +103,6 @@ function addMarker(map, layer, lon, lat, popupContentHTML) {
     marker.events.register("mousedown", feature, markerClick);
  
     layer.addMarker(marker);
-    map.addPopup(feature.createPopup(feature.closeBox));
 }
  
 function getCycleTileURL(bounds) {

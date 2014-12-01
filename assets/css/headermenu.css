@@ -8,7 +8,8 @@
 }
 
 button#btncarpicker,
-button#btnnotifier {
+button#btnnotifier,
+button#btnswitchview {
 	height: 100%;
 	width: 10%;
 	background: transparent;
@@ -25,6 +26,12 @@ button#btncarpicker {
 
 button#btnnotifier {
 	background-image: url('../pics/notify.png');
+	background-position: 50% 50%;
+	background-size: 30px 20px;
+}
+
+button#btnswitchview {
+	background-image: url('../pics/switch.png');
 	background-position: 50% 50%;
 	background-size: 30px 20px;
 }
