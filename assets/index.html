@@ -27,23 +27,24 @@ $(document).ready(function(){
 // 	amber.locals.drawMaps('mapview');
 	amber.ui.initLiveView();
 	
-	
+	source = document.getElementById('liveviewL');
 });
 
 var mediaSource = new MediaSource();
     
 // var sourceBuffer = mediaSource.addSourceBuffer('video/webm; codecs="vorbis,vp8"');
-var videos = document.getElementsByClassName('liveview');
-videos.src = window.URL.createObjectURL(mediaSource);
-
+var source; 
 var socket = new WebSocket("ws://78.53.138.91:3001/websocket/");
 mediaSource.addEventListener('webkitsourceopen', function(e){
 	console.log("source is open");
 });
 
 socket.onmessage = function(d){
-	var blob = d.data;
-	var bytes = new Blob(blob);
+	console.log("receiving...");
+	var arrayBuffer = [];
+    arrayBuffer.push(d.data);
+	var videoStream = new Blob([new Uint8Array(arrayBuffer)], { type: "image/jpeg" });
+	source.src = window.URL.createObjectURL(videoStream);
 }
 
 </script>
@@ -126,8 +127,9 @@ socket.onmessage = function(d){
 			<div id="mapview"></div>
 		</div>
 		<div id="videocontainer">
-			<video class="liveview" src="retard.webm" 
-			 loop type="video/webm"></video>
+			<div class="liveview" loop>
+			 	<img id="liveviewL" style="height: 100%; width: 100%">
+			 </div>
 		</div>
 	</div>
 	<footer class="bottommenu">
