@@ -26,7 +26,26 @@ $(document).ready(function(){
 // 	amber.locals.drawMaps('map');
 // 	amber.locals.drawMaps('mapview');
 	amber.ui.initLiveView();
+	
+	
 });
+
+var mediaSource = new MediaSource();
+    
+// var sourceBuffer = mediaSource.addSourceBuffer('video/webm; codecs="vorbis,vp8"');
+var videos = document.getElementsByClassName('liveview');
+videos.src = window.URL.createObjectURL(mediaSource);
+
+var socket = new WebSocket("ws://78.53.138.91:3001/websocket/");
+mediaSource.addEventListener('webkitsourceopen', function(e){
+	console.log("source is open");
+});
+
+socket.onmessage = function(d){
+	var blob = d.data;
+	var bytes = new Blob(blob);
+}
+
 </script>
 </head>
 <body>
