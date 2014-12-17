@@ -76,7 +76,7 @@ function Lat2Merc(lat) {
     return 20037508.34 * lat / 180;
 }
  
-
+// adds a marker to the map view
 function addMarker(map, layer, lon, lat, popupContentHTML) {
     var ll = new OpenLayers.LonLat(Lon2Merc(lon), Lat2Merc(lat));
     var feature = new OpenLayers.Feature(layer, ll); 
