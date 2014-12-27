@@ -22,12 +22,15 @@ amber.locals.jumpTo;				//.done
 
 // amber.media, containing all demanded media data like screenshots and videos
 amber.media = {};
+amber.media.recording = false;
+amber.media.screenshot; 
 // amber.cars, containing all car data available
 amber.cars = {};
 // list of available cars
 amber.cars.carList = [];
 // currently viewed car data
 amber.cars.Current = {};
+amber.cars.Current.id;
 amber.cars.Current.drive;
 amber.cars.Current.speed;
 amber.cars.Current.airFlow;
@@ -41,7 +44,10 @@ amber.cars.Current.km;
 amber.cars.Current.fuel;
 // amber.ui - UI functionalities of AMBER
 amber.ui = {};
+amber.ui.liveViewL;
+amber.ui.liveViewS;
 // ui functions - growing
+amber.ui.initVideoContainers;	//.done
 amber.ui.initLiveView; 			//.done
 amber.ui.toggleMaps;			//.done
 amber.ui.toggleLiveViews;		//.done
@@ -55,44 +61,50 @@ amber.ui.appendCars;			//.done
 amber.ui.setArmatures;			//.done
 amber.ui.closeLogin;			//.done
 amber.ui.openLogin;				//.done
+amber.ui.getLoginData;			//.done
+amber.ui.clearLogin;			//.done
 // amber.net - all net properties are stored here 
 amber.net = {};
+// functions:
+amber.net.initSocket; 
+amber.net.startDataStream;		//.done
+amber.net.stopDataStream;		//.done
+amber.net.messageReceived; 		//.done
+amber.net.processCockpitData;	//.done
+amber.net.processNotification;	//.done
+amber.net.processLiveStreamData;//.done
+amber.net.reqSendCommand;		//.done
+amber.net.commandSuccess;		//.done
+amber.net.commandError;			//.done
+amber.net.startRecord;			//.done
+amber.net.startRecSuccess;		//.done
+amber.net.startRecError;		//.done
+amber.net.stopRecord;			//.done
+amber.net.stopRecSuccess;		//.done
+amber.net.stopRecError;			//.done
+amber.net.reqLogin;				//.done
+amber.net.loginSuccess;			//.done
+amber.net.loginError;			//.done
+amber.net.reqLogout;			//.done
+amber.net.logoutSuccess;		//.done
+amber.net.logoutError;			//.done
+amber.net.reqCars;				//.done	
+amber.net.carsSuccess;			//.done
+amber.net.carsError;			//.done
 // amber.net.AmberSocket - WebSocket-based data streaming infrastructure
 amber.net.AmberSocket = {};
-amber.net.AmberSocket.onmessage; 
-amber.net.AmberSocket.processMessage;
-amber.net.AmberSocket.processCockpitData;
-amber.net.AmberSocket.processNotification;
-amber.net.AmberSocket.processLiveStreamData;
-//amber.net.Param - params for ajax reqs etc.
+//amber.net.Param - params for socket.send commands
 amber.net.Param = {};
-amber.net.Param.ADDRESS = "http://10.220.3.158:3001/";
+amber.net.Param.SOCKETADRESS = "ws://192.168.0.108:3001/websocket/";
+amber.net.Param.STARTSTREAM = "stream";
+amber.net.Param.STOPSTREAM = "stopStream";
 amber.net.Param.GETLOGIN = "requestLogin";
 amber.net.Param.GETLOGOUT = "requestLogout";
 amber.net.Param.GETCARS = "requestCars";
 amber.net.Param.SENDCOMMAND = "sendCommand";
-amber.net.Param.STARTRECORD = "starRecord";
+amber.net.Param.STARTRECORD = "startRecord";
 amber.net.Param.STOPRECORD = "stopRecord";
-// amber.net.Ajax - ajax calls etc.
-// every ajax call has its own success/error function!
-amber.net.Ajax = {};
-amber.net.Ajax.reqLogin;
-amber.net.Ajax.loginSuccess;
-amber.net.Ajax.loginError;
-amber.net.Ajax.reqLogout;
-amber.net.Ajax.logoutSuccess;
-amber.net.Ajax.logoutError;
-amber.net.Ajax.reqCars;
-amber.net.Ajax.carSuccess;
-amber.net.Ajax.carError;
-amber.net.Ajax.reqSendCommand;
-amber.net.Ajax.commandSuccess;
-amber.net.Ajax.commandError;
-amber.net.Ajax.startRecord;
-amber.net.Ajax.startRecSuccess;
-amber.net.Ajax.startRecError;
-amber.net.Ajax.stopRecord;
-amber.net.Ajax.stopRecSuccess;
-amber.net.Ajax.stopRecError;
+
+
 
 

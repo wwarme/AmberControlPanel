@@ -1,11 +1,17 @@
+// init variables for videocontainers
+amber.ui.initVideoContainers = function(){
+	this.liveViewL = document.getElementById('liveviewL');
+	this.liveViewS = document.getElementById('liveviewS');
+};
 // sets the initial state of mini map and live stream
 amber.ui.initLiveView = function(){
-	var switchables = $('#map, .liveviewsmall, #mapview, .liveview');
+	var switchables = $('#map, #videocontainer, #mapview, #videosmall');
 	// set initial state: small map, big live view visible, small view and big map hidden
 	$(switchables[1]).toggle();
 	$(switchables[2]).toggle();
 	// draw small map initially
 	amber.locals.drawMaps('map');
+	this.initVideoContainers();
 };
 // switch live stream and mini map
 amber.ui.switchLiveView = function(){
@@ -22,7 +28,7 @@ amber.ui.toggleMaps = function(){
 };
 // switch the live video shows
 amber.ui.toggleLiveViews = function(){
-	$('.liveviewsmall, #videocontainer').toggle();
+	$('#videosmall, #videocontainer').toggle();
 };
 // show request stats and data during login
 amber.ui.logBootStatus = function(message){
@@ -81,7 +87,16 @@ amber.ui.setArmatures = function(data){
 	$('.drivetarget').text(data.drive);
 	$('.tachotarget').text(data.speed);
 };
-
-
-
+// retrieve logindata from login dialog
+amber.ui.getLoginData = function(){
+	var loginData = {};
+	loginData.email = $('.loginfield[type=email]').val();
+	loginData.password = $('.loginfield[type=password]').val();
+	return loginData;
+};
+// clear login fields:
+amber.ui.clearLogin = function(){
+	$('.loginfield[type=email]').val("");
+	$('.loginfield[type=password]').val("");
+};
 

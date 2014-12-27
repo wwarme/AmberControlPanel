@@ -17,27 +17,25 @@
 <!-- amber client namespace incoming -->
 <script type="text/javascript" src="js/amber.js"></script>
 <script type="text/javascript" src="js/amber.ui.js"></script>
+<script type="text/javascript" src="js/amber.net.js"></script>
 <script type="text/javascript" src="js/ui.events.js"></script>
 <script type="text/javascript" src="js/amber.locals.js"></script>
-<script type="text/javascript" src="js/dummyshit.js"></script>
+<!-- <script type="text/javascript" src="js/dummyshit.js"></script> -->
 <script type="text/javascript">
 $(document).ready(function(){
-	$('.loginfade, .loginbody, .loginmaterial').toggle();
-// 	amber.locals.drawMaps('map');
-// 	amber.locals.drawMaps('mapview');
+// 	$('.loginfade, .loginbody, .loginmaterial').toggle();
 	amber.ui.initLiveView();
-	
+	amber.net.initSocket();
 	source = document.getElementById('liveviewL');
 });
 
-var source; 
-var socket = new WebSocket("ws://78.51.219.250:3001/websocket/");
-socket.onmessage = function(d){
-	console.log("receiving...");
-	var reader = new FileReader();
-	reader.readAsDataURL(d.data)
-	source.src = window.URL.createObjectURL(d.data);
-}
+// var source; 
+// var socket = new WebSocket("ws://192.168.0.122:3001/websocket/");
+// socket.onmessage = function(d){
+// 	console.log("receiving...");
+// 	if(d.data instanceof Blob)
+// 		source.src = window.URL.createObjectURL(d.data);
+// }
 
 </script>
 </head>
@@ -65,7 +63,7 @@ socket.onmessage = function(d){
 	<div class="loginbody">
 		<div class="loginrow">
 			<p class="welcome">WILLKOMMEN BEI AMBER</p>
-			<p class="info">status login...</p>
+			<p class="info">Bitte melden Sie sich an</p>
 		</div>
 		<div class="loginrow">
 			<div class="label">EMAIL</div><input class="loginfield" type="email">
@@ -98,8 +96,7 @@ socket.onmessage = function(d){
 		<div class="mapout">
 			<div id="map"></div>
 			<div id="videosmall">
-				<video class="liveviewsmall" src="retard.webm" 
-				  loop type="video/webm"></video>
+				<img id="liveviewS" style="height: 100%; width: 100%;">
 			</div>
 		</div>
 	</header>
@@ -119,7 +116,7 @@ socket.onmessage = function(d){
 			<div id="mapview"></div>
 		</div>
 		<div id="videocontainer">
-			<div class="liveview" loop>
+			<div id="videolarge">
 			 	<img id="liveviewL" style="height: 100%; width: 64%; margin-left: 17%;">
 			 </div>
 		</div>

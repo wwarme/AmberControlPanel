@@ -1,11 +1,11 @@
-kühlmittel temperatur 				- °C 	DONE
+kï¿½hlmittel temperatur 				- ï¿½C 	DONE
 absoluter luftdruck im einlasskanal - kPa 	DONE
-ansaugluft temperatur 				- °C 	DONE
+ansaugluft temperatur 				- ï¿½C 	DONE
 luftdurchfluss 						- g/s	DONE
 kraftstoffdruck 					- kPa	DONE
 barometrischer umgebungsdruck 		- kPa	DONE	
 
-tankfüllstand						- %		DONE
+tankfï¿½llstand						- %		DONE
 gesamt km							- km	DONE
 fahrstrecke seit motor an 			- km	DONE
 
@@ -18,3 +18,10 @@ Fades/Animationen:
 - armaturenlichter an
 - AMBER
 
+TODO Hackathon: 
+
+- cars api integrieren: carlist parsen, cars.current vorhalten
+- screenshots enablen
+- bedienelemente fÃ¼r screenshots, logout
+- pendings fÃ¼r record, login
+- status bar fÃ¼r actions in main!
