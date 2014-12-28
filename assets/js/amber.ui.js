@@ -64,15 +64,35 @@ amber.ui.closeLogin = function(){
 };
 // open login dialog after logout
 amber.ui.openLogin = function(s){
+	$('.carpickerbody').fadeOut();
 	$('.loginfade, .loginmaterial, .loginbody').fadeIn("fast");
 };
 // append a notification to the notification center
 amber.ui.appendNotification = function(data){
 	$('#noticontainer').append('<li class="notification">'+data+'</li>');
 };
-// append cars to car picker dialogs car list
+// append cars to car picker dialog (data is considered a list)
 amber.ui.appendCars = function(data){
-	
+	console.log("Appending cars to car picker...");
+	$('.carcontainer').empty();
+	var concat = [];
+	// iterate over car list:
+	for(var l = 0; l < data.length; l++){
+		var car = data[l];
+		var element = '<li class="car"'
+					 +'carname="'+car.vehicleName+'"'
+					 +'carid="'+car.vehicleID+'">'
+					 +car.vehicleName+'</li>';
+		concat.push(element);
+	}
+	$('.carcontainer').append(concat.join(""));
+	this.closeLogin();
+};
+// pick a car:
+amber.ui.carPicked = function(element){
+	amber.cars.Current.id = element.attr('carid');
+	amber.net.startDataStream(amber.cars.Current.id);
+	amber.ui.closeCarPicker();
 };
 // set ambers armature labels, represented by css-classes
 amber.ui.setArmatures = function(data){

@@ -16,6 +16,7 @@
 <script type="text/javascript" src="js/fx.js"></script>
 <!-- amber client namespace incoming -->
 <script type="text/javascript" src="js/amber.js"></script>
+<script type="text/javascript" src="js/amber.media.js"></script>
 <script type="text/javascript" src="js/amber.ui.js"></script>
 <script type="text/javascript" src="js/amber.net.js"></script>
 <script type="text/javascript" src="js/ui.events.js"></script>
@@ -26,17 +27,7 @@ $(document).ready(function(){
 // 	$('.loginfade, .loginbody, .loginmaterial').toggle();
 	amber.ui.initLiveView();
 	amber.net.initSocket();
-	source = document.getElementById('liveviewL');
 });
-
-// var source; 
-// var socket = new WebSocket("ws://192.168.0.122:3001/websocket/");
-// socket.onmessage = function(d){
-// 	console.log("receiving...");
-// 	if(d.data instanceof Blob)
-// 		source.src = window.URL.createObjectURL(d.data);
-// }
-
 </script>
 </head>
 <body>
@@ -52,10 +43,7 @@ $(document).ready(function(){
 		<div class="carpickerrow">
 			<div class="carpicker">
 				<ul class="carcontainer">
-					<li class="car"></li>
-					<li class="car"></li>
-					<li class="car"></li>
-					<li class="car"></li>
+<!-- 					<li class="car"></li> -->
 				</ul>
 			</div>
 		</div>
@@ -63,7 +51,7 @@ $(document).ready(function(){
 	<div class="loginbody">
 		<div class="loginrow">
 			<p class="welcome">WILLKOMMEN BEI AMBER</p>
-			<p class="info">Bitte melden Sie sich an</p>
+			<p class="info">Warte auf Server...</p>
 		</div>
 		<div class="loginrow">
 			<div class="label">EMAIL</div><input class="loginfield" type="email">
@@ -72,16 +60,19 @@ $(document).ready(function(){
 			<div class="label">PASSWORT</div><input class="loginfield" type="password">
 		</div>
 		<div class="loginrow">
-			<button class="loginsubmit">ANMELDEN</button>
+			<button class="loginsubmit" type="submit">ANMELDEN</button>
 		</div>
 	</div>
 			<!-- MAIN APP MARKUP BEGINS HERE -->
 	<header class="banner">
 		<div class="btnbar">
-			<button id="btnnotifier"></button>
-			<button id="btncarpicker"></button>
-			<button id="btnswitchview"></button>
-			<button id="btnrecord">REC</button>
+			<button id="btnnotifier" title="Benachrichtigungen anzeigen"></button>
+			<button id="btncarpicker" title="Anderes Fahrzeug wählen"></button>
+			<button id="btnswitchview" title="Karten-/Videoansicht wechseln"></button>
+			<button id="btnrecord" title="Videoaufnahme starten">REC</button>
+			<button id="btnscreenshot" title="Screenshot"></button>
+			<button id="btncommands" title="Befehl übermitteln"></button>
+			<button id="btnlogout" title="Abmelden"></button>
 		</div>
 		<div class="ridedata">
 			<div class="ridelabel">km Gesamt:</div>

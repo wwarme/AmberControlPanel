@@ -21,7 +21,5 @@ Fades/Animationen:
 TODO Hackathon: 
 
 - cars api integrieren: carlist parsen, cars.current vorhalten
-- screenshots enablen
-- bedienelemente für screenshots, logout
 - pendings für record, login
 - status bar für actions in main!

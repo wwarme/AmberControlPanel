@@ -1,9 +1,9 @@
-$(document).ready(function(){
-	$('.loginsubmit').click(function(){
-		$('.loginbody').fadeOut("fast",function(){
-			$('.carpickerbody').fadeIn("fast");
-		});		
-	});
+//$(document).ready(function(){
+//	$('.loginsubmit').click(function(){
+//		$('.loginbody').fadeOut("fast",function(){
+//			$('.carpickerbody').fadeIn("fast");
+//		});		
+//	});
 		
 //	$('.car').click(function(){
 //		$('.carpickerbody, .loginmaterial').fadeOut("slow",function(){
@@ -22,8 +22,5 @@ $(document).ready(function(){
 //		});
 //	});
 	
-	$('#btnswitchview').click(function(){
-		amber.ui.switchLiveView();
-	});
 });
 

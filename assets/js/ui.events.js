@@ -8,7 +8,10 @@
 $(document).ready(function(){
 	// login
 	$(document).on("click", ".loginsubmit", function(){
-		amber.net.reqLogin();
+		if(amber.net.AmberSocket.readyState == 1)
+			amber.net.reqLogin();
+		else
+			amber.ui.logBootStatus("Keine Verbindung zum Server vorhanden, bitte warten...");
 	});
 	// toggle notification center
 	$(document).on("click", "#btnnotifier", function(){
@@ -31,8 +34,32 @@ $(document).ready(function(){
 	});
 	// choose a car for live control
 	$(document).on("click", ".car", function(){
-		amber.car.Current.id = $(this).attr('carid');
-		amber.net.startDataStream(amber.car.Current.id);
-		amber.ui.closeCarPicker();
+		amber.ui.carPicked($(this));
+	});
+	// make a screenshot from the latest image blob sent
+	$(document).on("click","#btnscreenshot",function(){
+		amber.media.screenshot();
+	});
+	// open commands view
+	$(document).on("click","#btncommands",function(){
+		
+	});
+	// logout from Amber
+	$(document).on("click","#btnlogout",function(){
+		
 	});
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+

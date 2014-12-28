@@ -8,13 +8,13 @@ amber.net.initSocket = function(){
 	// opening event on AmberSocket, indicates connection success
 	this.AmberSocket.onopen = function(evt){
 		console.log("Socket Connection opened!");
+		amber.ui.logBootStatus("Bitte melden Sie sich an");
 	};
 	// log socket error events
 	this.AmberSocket.onerror = function(evt){
 		console.log("Socket Connection ERROR!");
 		console.log(evt);
 		amber.ui.openLogin();
-		amber.ui.logBootStatus("Die Verbindung wurde abgebrochen");
 	};
 	// overwrite WebSocket.onclose
 	this.AmberSocket.onclose = function(evt){
@@ -29,19 +29,59 @@ amber.net.initSocket = function(){
 			},5000);
 		// socket close triggered by error/failure:
 		} else {
-			amber.ui.logBootStatus("Die Verbindung wurde abgebrochen");
+			amber.ui.logBootStatus("Verbindung fehlerhaft");
 		}
+		amber.net.initSocket();
 	};
 };
 // method to be called to implement onmessage to receive data on 
 // a WebSocket
 amber.net.messageReceived = function(socketPackage){
-	if(socketPackage.data instanceof Blob){
-		amber.net.processLiveStreamData(socketPackage.data);
+	// work that protocol!
+	try{
+		// try if data is in json format
+		var incoming = JSON.parse(socketPackage.data);
+		console.log(incoming);
+		switch(incoming.id){
+		case "loginACK":
+			this.loginSuccess(incoming);
+			break;
+		case "logoutACK":
+			console.log("User logged out!");
+			break;
+		case "commandACK":
+			console.log("Command received and ");
+			break;
+		case "startRecordACK":
+			console.log("Recording started!");
+			break;
+		case "stopRecordACK":
+			console.log("Recording stopped!");
+			break;
+		case "error":
+			console.log("Error: "+incoming.data);
+			// initiate error protocol:
+			switch(incoming.data){
+			case "Login failed":
+				amber.ui.logBootStatus("Anmeldedaten nicht korrekt");
+				break;
+			}
+		}
+		
+	} catch (SyntaxError){
+		// if its NOT json, then it probably is a blob containing 
+		// picture data for the video stream
+		if(socketPackage.data instanceof Blob)
+			amber.net.processLiveStreamData(socketPackage.data);
 	}
 };
 // process livestream picture data 
-amber.net.processLiveStreamData = function(blob){
+amber.net.processLiveStreamData = function(data){
+// 'resource interpreted as image but transferred with mime type text/plain'
+	amber.cars.Current.sceneBlob = data;
+	// -> warning suppressed by creation of a copy of the blob data with explicitly 
+	// declared content-type (image/jpeg)
+	var blob = new Blob([data],{type : 'image/jpeg'});
 	// only ever render one video frame for performance reasons
 	if($(amber.ui.liveViewL).is(":visible")) // small view in the corner
 		amber.ui.liveViewL.src = window.URL.createObjectURL(blob);
@@ -86,12 +126,15 @@ amber.net.startRecord = function(){
 	var data = {};
 	data.callID = this.Param.STARTRECORD;
 	this.AmberSocker.send(JSON.stringify(data));
+	amber.media.recording = true;
+	// set recording to false in case server returns an error!
 };
 // send a command to stop the recording over AmberSocket
 amber.net.stopRecord = function(){
 	var data = {};
 	data.callID = this.Param.STOPRECORD;
 	this.AmberSocket.send(JSON.stringify(data));
+	amber.media.recording = false;
 };
 // login call
 amber.net.reqLogin = function(){
@@ -101,8 +144,11 @@ amber.net.reqLogin = function(){
 	this.AmberSocket.send(JSON.stringify(data));
 };
 // function executed if login was successful
-amber.net.loginSuccess = function(data){
-	amber.ui.closeLogin();
+amber.net.loginSuccess = function(incoming){
+	console.log("Access granted! Car data incoming...");
+	amber.ui.clearLogin();
+	amber.cars.carList = incoming.data.vehicles;
+	amber.ui.appendCars(incoming.data.vehicles);
 };
 // function executed if login fails
 amber.net.loginError = function(data){
@@ -126,9 +172,6 @@ amber.net.reqCars = function(){
 	var data = {};
 	data.callID = this.Param.GETCARS;
 	this.AmberSocket.send(JSON.stringify(data));
-};
-// if call for cars was successfull: 
-amber.net.carsSuccess = function(data){
 };
 // if call for cars produced an error:
 amber.net.carsError = function(data){
