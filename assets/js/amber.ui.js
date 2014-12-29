@@ -48,8 +48,11 @@ amber.ui.toggleNotifier = function(){
 		},"fast").attr('open','');
 	}
 };
-// open car picker dialog
+// open car picker dialog, stop running data stream
+// new car MUST be picked to reenable data streaming, session held
 amber.ui.openCarPicker = function(){
+	amber.net.stopDataStream(amber.cars.Current.id);
+	this.closeVideoStream();
 	$('.loginfade, .loginmaterial, .carpickerbody').fadeIn("fast");
 };
 // close car picker dialog
@@ -79,10 +82,14 @@ amber.ui.appendCars = function(data){
 	// iterate over car list:
 	for(var l = 0; l < data.length; l++){
 		var car = data[l];
+		var blob = new Blob([car.image],{ type : 'image/jpeg'});
+		var imgUrl = window.URL.createObjectURL(blob);
 		var element = '<li class="car"'
 					 +'carname="'+car.vehicleName+'"'
-					 +'carid="'+car.vehicleID+'">'
-					 +car.vehicleName+'</li>';
+					 +'carid="'+car.vehicleID+'">';
+		element += '<p>'+car.vehicleName+'</p>';
+		element += '<img src="'+imgUrl+'">';
+		element += '</li>';
 		concat.push(element);
 	}
 	$('.carcontainer').append(concat.join(""));
@@ -119,4 +126,8 @@ amber.ui.clearLogin = function(){
 	$('.loginfield[type=email]').val("");
 	$('.loginfield[type=password]').val("");
 };
-
+// clear the video stream containers for logout and while chosing new car
+amber.ui.closeVideoStream = function(){
+	this.liveViewL.src = "";
+	this.liveViewS.src = "";
+};

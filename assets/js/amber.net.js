@@ -38,25 +38,32 @@ amber.net.initSocket = function(){
 // a WebSocket
 amber.net.messageReceived = function(socketPackage){
 	// work that protocol!
+	console.log(socketPackage);
 	try{
 		// try if data is in json format
 		var incoming = JSON.parse(socketPackage.data);
 		console.log(incoming);
 		switch(incoming.id){
+		case "streamClosed":
+			amber.ui.closeVideoStream();
+			break;
+		case "telemetry":
+			this.processCockpitData(incoming);
+			break;
 		case "loginACK":
 			this.loginSuccess(incoming);
 			break;
 		case "logoutACK":
-			console.log("User logged out!");
+			this.logoutDone();
 			break;
 		case "commandACK":
 			console.log("Command received and ");
 			break;
 		case "startRecordACK":
-			console.log("Recording started!");
+			this.recordingStarted();
 			break;
 		case "stopRecordACK":
-			console.log("Recording stopped!");
+			this.recordingStopped(incoming);
 			break;
 		case "error":
 			console.log("Error: "+incoming.data);
@@ -67,7 +74,6 @@ amber.net.messageReceived = function(socketPackage){
 				break;
 			}
 		}
-		
 	} catch (SyntaxError){
 		// if its NOT json, then it probably is a blob containing 
 		// picture data for the video stream
@@ -75,10 +81,11 @@ amber.net.messageReceived = function(socketPackage){
 			amber.net.processLiveStreamData(socketPackage.data);
 	}
 };
-// process livestream picture data 
+// process image data for live video streaming 
 amber.net.processLiveStreamData = function(data){
-// 'resource interpreted as image but transferred with mime type text/plain'
+	// save and refresh image data for saving screenshots
 	amber.cars.Current.sceneBlob = data;
+// 'resource interpreted as image but transferred with mime type text/plain'
 	// -> warning suppressed by creation of a copy of the blob data with explicitly 
 	// declared content-type (image/jpeg)
 	var blob = new Blob([data],{type : 'image/jpeg'});
@@ -89,15 +96,14 @@ amber.net.processLiveStreamData = function(data){
 		amber.ui.liveViewS.src = window.URL.createObjectURL(blob);
 };
 // process cockpit data - TODOOOO!!!
-amber.net.processCockpitData = function(data){
+amber.net.processCockpitData = function(incoming){
 	// further processing needed for sure...
-	var carInfo = data;
+	var carInfo = incoming.data;
 	amber.ui.setArmatures(carInfo);
 };
 // process incoming notifications
-amber.net.processNotification = function(data){
-	var notification = data.text;
-	amber.ui.appendNotification(notification);
+amber.net.processNotification = function(incoming){
+	amber.ui.appendNotification(iincoming.data);
 };
 // initiate data stream from a chosen car
 amber.net.startDataStream = function(carID){
@@ -113,7 +119,6 @@ amber.net.stopDataStream = function(carID){
 	data.data = carID;
 	this.AmberSocket.send(JSON.stringify(data));
 };
-
 //send a command to the on board unit via WebSocket
 amber.net.reqSendCommand = function(command){
 	var data = {};
@@ -129,6 +134,10 @@ amber.net.startRecord = function(){
 	amber.media.recording = true;
 	// set recording to false in case server returns an error!
 };
+// record has been started on server side! 
+amber.net.recordingStarted = function(){
+	console.log("Recording started!");
+};
 // send a command to stop the recording over AmberSocket
 amber.net.stopRecord = function(){
 	var data = {};
@@ -136,17 +145,23 @@ amber.net.stopRecord = function(){
 	this.AmberSocket.send(JSON.stringify(data));
 	amber.media.recording = false;
 };
+// recording has been stopped on server side
+amber.net.recordingStopped = function(incoming){
+	console.log("Recording stopped!");
+};
 // login call
 amber.net.reqLogin = function(){
 	var data = {};
 	data.callID = this.Param.GETLOGIN;
 	data.data = amber.ui.getLoginData();
+	amber.user = amber.ui.getLoginData.email;
 	this.AmberSocket.send(JSON.stringify(data));
 };
 // function executed if login was successful
 amber.net.loginSuccess = function(incoming){
 	console.log("Access granted! Car data incoming...");
 	amber.ui.clearLogin();
+	amber.userID = incoming.data.userID;
 	amber.cars.carList = incoming.data.vehicles;
 	amber.ui.appendCars(incoming.data.vehicles);
 };
@@ -159,13 +174,14 @@ amber.net.loginError = function(data){
 amber.net.reqLogout = function(){
 	var data = {};
 	data.callID = this.Param.GETLOGOUT;
+	data.data = amber.userID;
+	console.log(data);
 	this.AmberSocket.send(JSON.stringify(data));
 };
-// logout successful - return to login
-amber.net.logoutSuccess = function(data){
-};
-// logout failed....
-amber.net.logoutError = function(data){
+// logout successful - return to login, streaming stopped on server side
+amber.net.logoutDone = function(){
+	console.log("User logged out!");
+	amber.ui.openLogin();
 };
 // request list of cars available to user
 amber.net.reqCars = function(){

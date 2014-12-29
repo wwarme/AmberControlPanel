@@ -46,7 +46,7 @@ $(document).ready(function(){
 	});
 	// logout from Amber
 	$(document).on("click","#btnlogout",function(){
-		
+		amber.net.reqLogout();
 	});
 });
 

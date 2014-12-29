@@ -20,6 +20,9 @@ Fades/Animationen:
 
 TODO Hackathon: 
 
-- cars api integrieren: carlist parsen, cars.current vorhalten
-- pendings für record, login
+- cars.current vorhalten
+- pendings für record, login (vfx)
 - status bar für actions in main!
+- car adden, liste neu laden
+- video aufnahme
+- labels für user name und car name

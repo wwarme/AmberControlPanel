@@ -1,6 +1,8 @@
 // complete javascript reference for amber client web application
 // .done => implemented as function
 var amber = {};
+amber.userID;
+amber.userName; 
 // amber.locals, containing all osm localization information 
 amber.locals = {};
 amber.locals.AmberMap;
@@ -68,6 +70,7 @@ amber.ui.closeLogin;			//.done
 amber.ui.openLogin;				//.done
 amber.ui.getLoginData;			//.done
 amber.ui.clearLogin;			//.done
+amber.ui.closeVideoStream;		//.done
 // amber.net - all net properties are stored here 
 amber.net = {};
 // functions:
@@ -91,8 +94,7 @@ amber.net.reqLogin;				//.done
 amber.net.loginSuccess;			//.done
 amber.net.loginError;			//.done
 amber.net.reqLogout;			//.done
-amber.net.logoutSuccess;		//.done
-amber.net.logoutError;			//.done
+amber.net.logoutDone;			//.done
 amber.net.reqCars;				//.done	
 amber.net.carsSuccess;			//.done
 amber.net.carsError;			//.done
