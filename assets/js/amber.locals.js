@@ -3,8 +3,11 @@ amber.locals.drawMaps = function(element){
 	$('#'+amber.locals.amberMapContainer).empty();
 	amber.locals.amberMapContainer = element;
 	$('#'+element).empty();
-	amber.locals.initLayers();
-	amber.locals.drawMap(element);
+	this.initLayers();
+	this.drawMap(element);
+	this.initRouteLayer();
+	this.RouteLayer.addFeatures(this.Route);
+	this.AmberMap.addLayers([this.RouteLayer]);
 };
 // draw a particular map for amber
 amber.locals.drawMap = function(mapContainer) {
@@ -20,7 +23,7 @@ amber.locals.drawMap = function(mapContainer) {
 								-20037508.34,
 								 20037508.34, 
 								 20037508.34),
-		numZoomLevels: 30,
+		numZoomLevels: 30,	
 		maxResolution: 156543,
 		units: 'meters'
 	});
@@ -41,12 +44,38 @@ amber.locals.initLayers = function(){
 	    displayInLayerSwitcher: false 
 	});
 };
+// init route layer where the cars route is drawn on
+amber.locals.initRouteLayer = function(){
+	this.RouteLayer = new OpenLayers.Layer.Vector("Line Layer");
+	this.AmberMap.addLayers([this.RouteLayer]);
+};
+// reset route e.g. for a new car to be viewed
+amber.locals.resetRoute = function(){
+	this.Route = [];
+};
 // move the marker to the long and lat given as parameters
 amber.locals.updateMarker = function(){
+	var points = new Array(
+			new OpenLayers.Geometry.Point(this.LongLat.lon,this.LongLat.lat)
+			.transform(this.AmberMap.displayProjection,
+					   this.AmberMap.projection)
+	);
 	// only for testing!//
-	this.LongLat.lon += 0.001;
-	this.LongLat.lat += 0.001;
+	this.LongLat.lon += 0.0001;
+	this.LongLat.lat += 0.0001;
+	points.push(new OpenLayers.Geometry.Point(this.LongLat.lon,this.LongLat.lat)
+		.transform(this.AmberMap.displayProjection,
+				   this.AmberMap.projection));
 	/***************************/
+	var line = new OpenLayers.Geometry.LineString(points);
+	var style = { 
+			  strokeColor: '#ffcc33', 
+			  strokeOpacity: 1.0,
+			  strokeWidth: 3
+			};
+	var lineFeature = new OpenLayers.Feature.Vector(line, null, style);
+	this.RouteLayer.addFeatures([lineFeature]);
+	this.Route.push(lineFeature);
     var newPx = this.AmberMap.getLayerPxFromViewPortPx(
     		this.AmberMap.getPixelFromLonLat(
     				new OpenLayers.LonLat(this.LongLat.lon, 
@@ -86,10 +115,7 @@ function addMarker(map, layer, lon, lat, popupContentHTML) {
     feature.popupClass = OpenLayers.Class(OpenLayers.Popup.FramedCloud, {minSize: new OpenLayers.Size(300, 180) } );
     feature.data.popupContentHTML = popupContentHTML;
     feature.data.overflow = "hidden";
- 
-    
     marker.feature = feature;
- 
     var markerClick = function(evt) {
         if (this.popup == null) {
             this.popup = this.createPopup(this.closeBox);

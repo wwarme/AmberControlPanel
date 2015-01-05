@@ -1,9 +1,9 @@
-// init variables for videocontainers
+// init variables for videocontainer-elements
 amber.ui.initVideoContainers = function(){
 	this.liveViewL = document.getElementById('liveviewL');
 	this.liveViewS = document.getElementById('liveviewS');
 };
-// sets the initial state of mini map and live stream
+// set the initial state of mini map and live stream
 amber.ui.initLiveView = function(){
 	var switchables = $('#map, #videocontainer, #mapview, #videosmall');
 	// set initial state: small map, big live view visible, small view and big map hidden
@@ -46,10 +46,11 @@ amber.ui.toggleNotifier = function(){
 		$('.notifier').animate({
 			"marginLeft":"0" // open not.center
 		},"fast").attr('open','');
+		this.notifierToggled = true;
 	}
 };
 // open car picker dialog, stop running data stream
-// new car MUST be picked to reenable data streaming, session held
+// new car MUST be picked to reenable data streaming, but session is held
 amber.ui.openCarPicker = function(){
 	amber.net.stopDataStream(amber.cars.Current.id);
 	this.closeVideoStream();
@@ -77,6 +78,7 @@ amber.ui.appendNotification = function(data){
 // append cars to car picker dialog (data is considered a list)
 amber.ui.appendCars = function(data){
 	console.log("Appending cars to car picker...");
+	// clean from older car elements to avoid duplicates
 	$('.carcontainer').empty();
 	var concat = [];
 	// iterate over car list:
@@ -90,16 +92,25 @@ amber.ui.appendCars = function(data){
 		element += '<p>'+car.vehicleName+'</p>';
 		element += '<img src="'+imgUrl+'">';
 		element += '</li>';
+		// push the new elements string representative in a list
 		concat.push(element);
 	}
+	// append the car elements by concatenating the single strings
+	// in the list to one big single string and inject it in the 
+	// html list
 	$('.carcontainer').append(concat.join(""));
 	this.closeLogin();
 };
 // pick a car:
 amber.ui.carPicked = function(element){
+	// set the current car 
 	amber.cars.Current.id = element.attr('carid');
+	// start data streaming from the picked car
 	amber.net.startDataStream(amber.cars.Current.id);
-	amber.ui.closeCarPicker();
+	// reset old route viewed in the map 
+	amber.locals.resetRoute();
+	// close car picker
+	this.closeCarPicker();
 };
 // set ambers armature labels, represented by css-classes
 amber.ui.setArmatures = function(data){
@@ -116,6 +127,7 @@ amber.ui.setArmatures = function(data){
 };
 // retrieve logindata from login dialog
 amber.ui.getLoginData = function(){
+	// build an object for in-app data communication
 	var loginData = {};
 	loginData.email = $('.loginfield[type=email]').val();
 	loginData.password = $('.loginfield[type=password]').val();
@@ -131,3 +143,37 @@ amber.ui.closeVideoStream = function(){
 	this.liveViewL.src = "";
 	this.liveViewS.src = "";
 };
+
+/* amber.ui.FX
+ * visual effects for the amber control panel
+ * powered by CSS3
+ */
+// switch on "the lights" after login
+amber.ui.FX.lightsON = function(){
+	
+};
+// blinking record symbol due video stream recording
+amber.ui.FX.recordingON = function(){
+	if(amber.media.recording){
+		$('#btnrecord').fadeTo('slow', 0.1).fadeTo('slow', 1.0);
+		setTimeout(function(){
+			amber.ui.FX.recordingON();
+		},500);
+	}
+};
+// new notification received!
+amber.ui.FX.notificationON = function(){
+	if(!amber.ui.notifierToggled){
+		$('#btnnotifier').fadeTo('slow', 0.1).fadeTo('slow', 1.0);
+		setTimeout(function(){
+			amber.ui.FX.notificationON();
+		},500);
+	}
+};
+
+
+
+
+
+
+

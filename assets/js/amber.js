@@ -9,6 +9,8 @@ amber.locals.AmberMap;
 amber.locals.amberMapContainer;
 amber.locals.LayerMapnik = {};
 amber.locals.LayerMarkers = {};
+amber.locals.Route = [];
+amber.locals.RouteLayer;
 amber.locals.Marker = {};
 amber.locals.zoom = 18;
 amber.locals.LongLat = {};
@@ -16,6 +18,8 @@ amber.locals.LongLat = {};
 amber.locals.LongLat.lon = 13.63286;
 amber.locals.LongLat.lat = 52.31954;
 // functions
+amber.locals.initRouteLayer;		//.done
+amber.locals.resetRoute;			//.done
 amber.locals.initLayers;			//.done
 amber.locals.drawMap;				//.done
 amber.locals.drawMaps;				//.done
@@ -52,6 +56,7 @@ amber.cars.Current.fuel;
 amber.ui = {};
 amber.ui.liveViewL;
 amber.ui.liveViewS;
+amber.ui.notifierToggled = false;
 // ui functions - growing
 amber.ui.initVideoContainers;	//.done
 amber.ui.initLiveView; 			//.done
@@ -71,6 +76,12 @@ amber.ui.openLogin;				//.done
 amber.ui.getLoginData;			//.done
 amber.ui.clearLogin;			//.done
 amber.ui.closeVideoStream;		//.done
+// FX - namespace for ui visual effects 
+amber.ui.FX = {};
+// functions:
+amber.ui.FX.lightsON;
+amber.ui.FX.recordingON;
+amber.ui.FX.notificationON;
 // amber.net - all net properties are stored here 
 amber.net = {};
 // functions:

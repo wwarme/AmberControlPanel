@@ -8,9 +8,10 @@
 $(document).ready(function(){
 	// login
 	$(document).on("click", ".loginsubmit", function(){
+		// determine sockets readyState: 1 is ready
 		if(amber.net.AmberSocket.readyState == 1)
-			amber.net.reqLogin();
-		else
+			amber.net.reqLogin(); // connect if ready
+		else // inform user if its not ready
 			amber.ui.logBootStatus("Keine Verbindung zum Server vorhanden, bitte warten...");
 	});
 	// toggle notification center

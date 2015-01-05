@@ -14,12 +14,14 @@ amber.net.initSocket = function(){
 	this.AmberSocket.onerror = function(evt){
 		console.log("Socket Connection ERROR!");
 		console.log(evt);
+		// return to login after connection error
 		amber.ui.openLogin();
 	};
 	// overwrite WebSocket.onclose
 	this.AmberSocket.onclose = function(evt){
 		console.log("Socket Connection closed!");
 		console.log(evt);
+		// return to login after socket connection has been closed
 		amber.ui.openLogin();
 		// clean log out/socket close event:
 		if(evt.wasClean){
@@ -29,8 +31,10 @@ amber.net.initSocket = function(){
 			},5000);
 		// socket close triggered by error/failure:
 		} else {
-			amber.ui.logBootStatus("Verbindung fehlerhaft");
+			amber.ui.logBootStatus("Verbindungsfehler. Bitte warten...");
 		}
+		// recursion! amber keeps trying to open a socket connection 
+		// in case of a socket error
 		amber.net.initSocket();
 	};
 };
@@ -38,7 +42,6 @@ amber.net.initSocket = function(){
 // a WebSocket
 amber.net.messageReceived = function(socketPackage){
 	// work that protocol!
-	console.log(socketPackage);
 	try{
 		// try if data is in json format
 		var incoming = JSON.parse(socketPackage.data);
@@ -104,7 +107,17 @@ amber.net.processCockpitData = function(incoming){
 // process incoming notifications
 amber.net.processNotification = function(incoming){
 	amber.ui.appendNotification(iincoming.data);
+	amber.ui.notifierToggled = false;
+	amber.ui.FX.notifierON();
 };
+
+/*
+ * socket commands: via WebSocket.send, a stringified object is 
+ * sent to the server. the object ALWAYS contains a callID and 
+ * has an optional data-attribute, which can contain data like 
+ * login-data 
+ */ 
+
 // initiate data stream from a chosen car
 amber.net.startDataStream = function(carID){
 	var data = {};
@@ -130,8 +143,9 @@ amber.net.reqSendCommand = function(command){
 amber.net.startRecord = function(){
 	var data = {};
 	data.callID = this.Param.STARTRECORD;
-	this.AmberSocker.send(JSON.stringify(data));
+//	this.AmberSocker.send(JSON.stringify(data));
 	amber.media.recording = true;
+	amber.ui.FX.recordingON();
 	// set recording to false in case server returns an error!
 };
 // record has been started on server side! 
@@ -142,7 +156,7 @@ amber.net.recordingStarted = function(){
 amber.net.stopRecord = function(){
 	var data = {};
 	data.callID = this.Param.STOPRECORD;
-	this.AmberSocket.send(JSON.stringify(data));
+//	this.AmberSocket.send(JSON.stringify(data));
 	amber.media.recording = false;
 };
 // recording has been stopped on server side
