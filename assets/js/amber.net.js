@@ -51,7 +51,9 @@ amber.net.messageReceived = function(socketPackage){
 			amber.ui.closeVideoStream();
 			break;
 		case "telemetry":
-			this.processCockpitData(incoming);
+			this.processCockpitData(incoming.data);
+			this.processLiveStreamData(incoming.image);
+//			amber.locals.
 			break;
 		case "loginACK":
 			this.loginSuccess(incoming);
@@ -86,28 +88,21 @@ amber.net.messageReceived = function(socketPackage){
 };
 // process image data for live video streaming 
 amber.net.processLiveStreamData = function(data){
-	// save and refresh image data for saving screenshots
-	amber.cars.Current.sceneBlob = data;
-// 'resource interpreted as image but transferred with mime type text/plain'
-	// -> warning suppressed by creation of a copy of the blob data with explicitly 
-	// declared content-type (image/jpeg)
-	var blob = new Blob([data],{type : 'image/jpeg'});
-	// only ever render one video frame, image data are transformed internally
-	// by setting the elements src-attribute with the received blob as target
+	amber.media.scene = "data:image/png;base64,"+data;
 	if($(amber.ui.liveViewL).is(":visible")) // small view in the corner
-		amber.ui.liveViewL.src = window.URL.createObjectURL(blob);
+		amber.ui.liveViewL.src = amber.media.scene;
 	if($(amber.ui.liveViewS).is(":visible")) // main video view
-		amber.ui.liveViewS.src = window.URL.createObjectURL(blob);
+		amber.ui.liveViewS.src = amber.media.scene;
 };
-// process cockpit data - TODOOOO!!!
+// process cockpit and telemetry data 
 amber.net.processCockpitData = function(incoming){
-	// further processing needed for sure...
-	var carInfo = incoming.data;
-	amber.ui.setArmatures(carInfo);
+	amber.cars.Current = incoming;
+	amber.ui.setArmatures(incoming);
+	amber.locals.updateMarker();
 };
 // process incoming notifications
 amber.net.processNotification = function(incoming){
-	amber.ui.appendNotification(iincoming.data);
+	amber.ui.appendNotification(incoming);
 	amber.ui.notifierToggled = false;
 	amber.ui.FX.notifierON();
 };
@@ -120,17 +115,17 @@ amber.net.processNotification = function(incoming){
  */ 
 
 // initiate data stream from a chosen car
-amber.net.startDataStream = function(carID){
+amber.net.startDataStream = function(){
 	var data = {};
 	data.callID = this.Param.STARTSTREAM;
-	data.data = carID;
+	data.data = amber.cars.Current.id;
 	this.AmberSocket.send(JSON.stringify(data));
 };
 // stop the data stream in order to change the car to observe
-amber.net.stopDataStream = function(carID){
+amber.net.stopDataStream = function(){
 	var data = {};
 	data.callID = this.Param.STOPSTREAM;
-	data.data = carID;
+	data.data = amber.cars.Current.id;
 	this.AmberSocket.send(JSON.stringify(data));
 };
 //send a command to the on board unit via WebSocket
@@ -144,11 +139,12 @@ amber.net.reqSendCommand = function(command){
 amber.net.startRecord = function(){
 	var data = {};
 	data.callID = this.Param.STARTRECORD;
-	this.AmberSocker.send(JSON.stringify(data));
+	data.data = amber.cars.Current.id;
+	this.AmberSocket.send(JSON.stringify(data));
 	amber.media.recording = true;
 	amber.ui.FX.recordingON();
 	// set recording to false in case server returns an error!
-};
+};	
 // record has been started on server side! 
 amber.net.recordingStarted = function(){
 	console.log("Recording started!");
@@ -157,6 +153,7 @@ amber.net.recordingStarted = function(){
 amber.net.stopRecord = function(){
 	var data = {};
 	data.callID = this.Param.STOPRECORD;
+	data.data = amber.cars.Current.id;
 	this.AmberSocket.send(JSON.stringify(data));
 	amber.media.recording = false;
 };

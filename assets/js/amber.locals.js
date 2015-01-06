@@ -73,8 +73,10 @@ amber.locals.updateMarker = function(){
 					   this.AmberMap.projection)
 	);
 	// only for testing!//
-	this.LongLat.lon += 0.0001;
-	this.LongLat.lat += 0.0001;
+//	this.LongLat.lon += 0.0001;
+//	this.LongLat.lat += 0.0001;
+	this.LongLat.lon = amber.cars.Current.lon;
+	this.LongLat.lat = amber.cars.Current.lat;	
 	// second point, pushed into points-array, containing the updated 
 	// lat-long position
 	points.push(new OpenLayers.Geometry.Point(this.LongLat.lon,this.LongLat.lat)

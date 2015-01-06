@@ -29,8 +29,7 @@ amber.locals.jumpTo;				//.done
 // amber.media, containing all demanded media data like screenshots and videos
 amber.media = {};
 amber.media.recording = false;
-amber.media.filename = "screenshot";
-amber.media.fileURL;
+amber.media.scene;
 // functions:
 amber.media.screenshot; 
 // amber.cars, containing all car data available
@@ -39,7 +38,6 @@ amber.cars = {};
 amber.cars.carList = [];
 // currently viewed car data
 amber.cars.Current = {};
-amber.cars.Current.sceneBlob;
 amber.cars.Current.id;
 amber.cars.Current.drive;
 amber.cars.Current.speed;
@@ -113,7 +111,7 @@ amber.net.carsError;			//.done
 amber.net.AmberSocket = {};
 //amber.net.Param - params for socket.send commands
 amber.net.Param = {};
-amber.net.Param.SOCKETADRESS = "ws://192.168.0.108:3001/websocket/";
+amber.net.Param.SOCKETADRESS = "ws://10.220.6.118:3001/websocket/";
 // send commands over socket:
 amber.net.Param.STARTSTREAM = "startStream";
 amber.net.Param.STOPSTREAM = "stopStream";

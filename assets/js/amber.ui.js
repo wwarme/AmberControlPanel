@@ -86,8 +86,7 @@ amber.ui.appendCars = function(data){
 	// iterate over car list:
 	for(var l = 0; l < data.length; l++){
 		var car = data[l];
-		var blob = new Blob([car.image],{ type : 'image/jpeg'});
-		var imgUrl = window.URL.createObjectURL(blob);
+		var imgUrl = "data:image/png;base64,"+car.image;
 		var element = '<li class="car"'
 					 +'carname="'+car.vehicleName+'"'
 					 +'carid="'+car.vehicleID+'">';
@@ -108,7 +107,7 @@ amber.ui.carPicked = function(element){
 	// set the current car 
 	amber.cars.Current.id = element.attr('carid');
 	// start data streaming from the picked car
-	amber.net.startDataStream(amber.cars.Current.id);
+	amber.net.startDataStream();
 	// reset old route viewed in the map 
 	amber.locals.resetRoute();
 	// close car picker
