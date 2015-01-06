@@ -30,18 +30,20 @@ amber.ui.toggleMaps = function(){
 amber.ui.toggleLiveViews = function(){
 	$('#videosmall, #videocontainer').toggle();
 };
-// show request stats and data during login
+// show request stats, connectivity and data during login
 amber.ui.logBootStatus = function(message){
 	$('.info').text(message);
 };
 // toggle notification center
 amber.ui.toggleNotifier = function(){
+	// if center is open:
 	if($('.notifier').attr('open')){
 		$('.notifier').animate({
 			"marginLeft":"-20%" // close not.center
 		},"fast", function(){
 			$('.notifier').removeAttr('open');
 		});
+	// if center is closed:
 	} else {
 		$('.notifier').animate({
 			"marginLeft":"0" // open not.center

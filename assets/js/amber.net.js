@@ -92,7 +92,8 @@ amber.net.processLiveStreamData = function(data){
 	// -> warning suppressed by creation of a copy of the blob data with explicitly 
 	// declared content-type (image/jpeg)
 	var blob = new Blob([data],{type : 'image/jpeg'});
-	// only ever render one video frame for performance reasons
+	// only ever render one video frame, image data are transformed internally
+	// by setting the elements src-attribute with the received blob as target
 	if($(amber.ui.liveViewL).is(":visible")) // small view in the corner
 		amber.ui.liveViewL.src = window.URL.createObjectURL(blob);
 	if($(amber.ui.liveViewS).is(":visible")) // main video view
@@ -143,7 +144,7 @@ amber.net.reqSendCommand = function(command){
 amber.net.startRecord = function(){
 	var data = {};
 	data.callID = this.Param.STARTRECORD;
-//	this.AmberSocker.send(JSON.stringify(data));
+	this.AmberSocker.send(JSON.stringify(data));
 	amber.media.recording = true;
 	amber.ui.FX.recordingON();
 	// set recording to false in case server returns an error!
@@ -156,7 +157,7 @@ amber.net.recordingStarted = function(){
 amber.net.stopRecord = function(){
 	var data = {};
 	data.callID = this.Param.STOPRECORD;
-//	this.AmberSocket.send(JSON.stringify(data));
+	this.AmberSocket.send(JSON.stringify(data));
 	amber.media.recording = false;
 };
 // recording has been stopped on server side

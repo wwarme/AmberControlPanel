@@ -1,5 +1,5 @@
 // complete javascript reference for amber client web application
-// .done => implemented as function
+// .done => implemented as function in corresponding name space!
 var amber = {};
 amber.userID;
 amber.userName; 
@@ -57,7 +57,7 @@ amber.ui = {};
 amber.ui.liveViewL;
 amber.ui.liveViewS;
 amber.ui.notifierToggled = false;
-// ui functions - growing
+// ui functions 
 amber.ui.initVideoContainers;	//.done
 amber.ui.initLiveView; 			//.done
 amber.ui.toggleMaps;			//.done
@@ -80,9 +80,9 @@ amber.ui.closeVideoStream;		//.done
 amber.ui.FX = {};
 // functions:
 amber.ui.FX.lightsON;
-amber.ui.FX.recordingON;
-amber.ui.FX.notificationON;
-// amber.net - all net properties are stored here 
+amber.ui.FX.recordingON;		//.done
+amber.ui.FX.notificationON;		//.done
+// amber.net - all network properties are stored here 
 amber.net = {};
 // functions:
 amber.net.initSocket; 

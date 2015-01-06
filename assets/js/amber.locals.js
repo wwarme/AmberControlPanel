@@ -1,18 +1,26 @@
-//draw both maps in amber 
+//init map in given element (small view or large view)
 amber.locals.drawMaps = function(element){
+	// empty current map container of other map view
 	$('#'+amber.locals.amberMapContainer).empty();
+	// new map view element
 	amber.locals.amberMapContainer = element;
+	// empty before new rendering
 	$('#'+element).empty();
+	// init osm layers 
 	this.initLayers();
 	this.drawMap(element);
+	// init vector layer to render route
 	this.initRouteLayer();
+	// add already driven route from other map view
 	this.RouteLayer.addFeatures(this.Route);
+	// add new vector layer to osm map
 	this.AmberMap.addLayers([this.RouteLayer]);
 };
 // draw a particular map for amber
 amber.locals.drawMap = function(mapContainer) {
 	this.AmberMap = {};
 	this.initLayers();
+	// init osm components
 	this.AmberMap = new OpenLayers.Map(mapContainer, {
 		projection: new OpenLayers.Projection("EPSG:900913"),
 		displayProjection: new OpenLayers.Projection("EPSG:4326"),
@@ -27,7 +35,9 @@ amber.locals.drawMap = function(mapContainer) {
 		maxResolution: 156543,
 		units: 'meters'
 	});
+	// add osm layer components to amber map
 	this.AmberMap.addLayers([this.LayerMapnik,this.LayerMarkers]);
+	// mark initial position 
 	this.jumpTo(this.AmberMap);
 	addMarker(this.AmberMap, this.LayerMarkers, this.LongLat.lon, this.LongLat.lat, "");
 };
@@ -44,7 +54,7 @@ amber.locals.initLayers = function(){
 	    displayInLayerSwitcher: false 
 	});
 };
-// init route layer where the cars route is drawn on
+// init vector layer where the cars route is drawn on
 amber.locals.initRouteLayer = function(){
 	this.RouteLayer = new OpenLayers.Layer.Vector("Line Layer");
 	this.AmberMap.addLayers([this.RouteLayer]);
@@ -53,8 +63,10 @@ amber.locals.initRouteLayer = function(){
 amber.locals.resetRoute = function(){
 	this.Route = [];
 };
-// move the marker to the long and lat given as parameters
+// move the marker to the long and lat given in amber.locals.LongLat
 amber.locals.updateMarker = function(){
+	// make array for 2 points 
+	// first point is the point before the update
 	var points = new Array(
 			new OpenLayers.Geometry.Point(this.LongLat.lon,this.LongLat.lat)
 			.transform(this.AmberMap.displayProjection,
@@ -63,30 +75,40 @@ amber.locals.updateMarker = function(){
 	// only for testing!//
 	this.LongLat.lon += 0.0001;
 	this.LongLat.lat += 0.0001;
+	// second point, pushed into points-array, containing the updated 
+	// lat-long position
 	points.push(new OpenLayers.Geometry.Point(this.LongLat.lon,this.LongLat.lat)
 		.transform(this.AmberMap.displayProjection,
 				   this.AmberMap.projection));
 	/***************************/
+	// generate a line between the two points
 	var line = new OpenLayers.Geometry.LineString(points);
+	// apply style definition
 	var style = { 
 			  strokeColor: '#ffcc33', 
 			  strokeOpacity: 1.0,
 			  strokeWidth: 3
-			};
+	};
+	// generate OL line feature, based on the line
 	var lineFeature = new OpenLayers.Feature.Vector(line, null, style);
+	// add line to the vector layer to render ongoing route
 	this.RouteLayer.addFeatures([lineFeature]);
+	// save current route-point in amber.locals.Route (array)
 	this.Route.push(lineFeature);
+	// update position on map, generate LonLat-position...
     var newPx = this.AmberMap.getLayerPxFromViewPortPx(
     		this.AmberMap.getPixelFromLonLat(
     				new OpenLayers.LonLat(this.LongLat.lon, 
     									  this.LongLat.lat).transform(
     						this.AmberMap.displayProjection, 
     						this.AmberMap.projection)));
+    // ... and render in the map
     this.Marker.moveTo(newPx);
     this.zoom = 18;
+    // centering for new position
     this.jumpTo();
 };
-
+// reset center inside map
 amber.locals.jumpTo = function() {
     var x = Lon2Merc(this.LongLat.lon);
     var y = Lat2Merc(this.LongLat.lat);
@@ -94,11 +116,13 @@ amber.locals.jumpTo = function() {
     return false;
 };
  
-//functions supplied by OSM tutorial
+/*
+ * functions supplied by OSM tutorial:
+ */
+
 function Lon2Merc(lon) {
     return 20037508.34 * lon / 180;
 }
- 
 function Lat2Merc(lat) {
     var PI = 3.14159265358979323846;
     lat = Math.log(Math.tan( (90 + lat) * PI / 360)) / (PI / 180);
