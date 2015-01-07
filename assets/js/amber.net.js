@@ -99,6 +99,7 @@ amber.net.processLiveStreamData = function(data){
 // process cockpit and telemetry data 
 amber.net.processCockpitData = function(incoming){
 	// set the current telemetry data (constantly updated)
+	incoming.id = amber.carID;
 	amber.cars.Current = incoming;
 	// write telemetry data into UI
 	amber.ui.setArmatures(incoming);
@@ -123,7 +124,7 @@ amber.net.processNotification = function(incoming){
 amber.net.startDataStream = function(){
 	var data = {};
 	data.callID = this.Param.STARTSTREAM;
-	data.data = amber.cars.Current.id;
+	data.data = amber.carID;
 	this.AmberSocket.send(JSON.stringify(data));
 };
 // stop the data stream in order to change the car to observe

@@ -106,7 +106,7 @@ amber.ui.appendCars = function(data){
 // pick a car:
 amber.ui.carPicked = function(element){
 	// set the current car 
-	amber.cars.Current.id = element.attr('carid');
+	amber.carID = element.attr('carid');
 	// start data streaming from the picked car
 	amber.net.startDataStream();
 	// reset old route viewed in the map 

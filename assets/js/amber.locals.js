@@ -107,7 +107,7 @@ amber.locals.updateMarker = function(){
     // ... and render in the map
     this.Marker.moveTo(newPx);
     // centering for new position
-//    this.jumpTo();
+    this.jumpTo();
 };
 // reset center inside map
 amber.locals.jumpTo = function() {

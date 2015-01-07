@@ -1,6 +1,7 @@
 @font-face {
 	font-family: segoe;
-	src: url(segoeui.ttf);
+	src: url(segoeuil.ttf);
+	font-weight: 500;
 }
 
 html {

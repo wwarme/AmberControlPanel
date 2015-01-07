@@ -3,6 +3,7 @@
 var amber = {};
 amber.userID;
 amber.userName; 
+amber.carID;
 // amber.locals, containing all osm localization information 
 amber.locals = {};
 amber.locals.AmberMap;
