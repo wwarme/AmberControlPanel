@@ -85,7 +85,7 @@ amber.locals.updateMarker = function(){
 	/***************************/
 	// generate a line between the two points
 	var line = new OpenLayers.Geometry.LineString(points);
-	// apply style definition
+	// apply style definition for the route drawn in map
 	var style = { 
 			  strokeColor: '#ffcc33', 
 			  strokeOpacity: 1.0,
@@ -106,9 +106,8 @@ amber.locals.updateMarker = function(){
     						this.AmberMap.projection)));
     // ... and render in the map
     this.Marker.moveTo(newPx);
-    this.zoom = 18;
     // centering for new position
-    this.jumpTo();
+//    this.jumpTo();
 };
 // reset center inside map
 amber.locals.jumpTo = function() {

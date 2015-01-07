@@ -1,8 +1,0 @@
-function lightsOn(){
-	
-}
-
-function unlockPanel(){
-	
-}
-

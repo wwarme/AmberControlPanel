@@ -71,6 +71,7 @@ amber.ui.closeLogin = function(){
 // open login dialog after logout
 amber.ui.openLogin = function(s){
 	$('.carpickerbody').fadeOut();
+	this.FX.lightsOFF();
 	$('.loginfade, .loginmaterial, .loginbody').fadeIn("fast");
 };
 // append a notification to the notification center
@@ -112,6 +113,7 @@ amber.ui.carPicked = function(element){
 	amber.locals.resetRoute();
 	// close car picker
 	this.closeCarPicker();
+	this.FX.lightsON();
 };
 // set ambers armature labels, represented by css-classes
 amber.ui.setArmatures = function(data){
@@ -125,6 +127,15 @@ amber.ui.setArmatures = function(data){
 	$('.target_eviropress').text(data.enviroPressure);
 	$('.drivetarget').text(data.drive);
 	$('.tachotarget').text(data.speed);
+	var gas = data.fuel+"%";
+	var load = data.engineLoad+"%";
+	$('.fuelin').css('width',gas);
+	if(data.engineLoad && data.engineLoad > 0)
+		$('.motorload').css('width',load)
+					   .css('box-shadow','0 -11px 61px 48px #ffcc33')
+					   .text(load);
+	else
+		$('.motorload').css('box-shadow','none').css('width','0');
 };
 // retrieve logindata from login dialog
 amber.ui.getLoginData = function(){
@@ -151,7 +162,57 @@ amber.ui.closeVideoStream = function(){
  */
 // switch on "the lights" after login
 amber.ui.FX.lightsON = function(){
-	
+	setTimeout(function(){
+		$('.ridedata').css('box-shadow','inset 0 0 25px 0px #ffcc33');
+		$('.ridedata>div').css({
+			'color':'#ffcc33',
+			'text-shadow':'0 0 0.2em #ffcc33',
+			'opacity':'1.0'
+		});
+		$('.fuelin').css('background','#ffcc33');
+		$('.fuelout').css('border-color','#ffcc33');
+	},500);
+	setTimeout(function(){
+		$('.drivein').css('box-shadow','inset 0 0 35px 0px #ffcc33');
+		$('.drivein').find('.armalabel, .unitlabel').css('color','#ffcc33');
+		$('.drivein').find('.armalabel, .unitlabel').css('text-shadow','0 0 0.2em #ffcc33');
+	},1000);
+	setTimeout(function(){
+		$('.tachoin').css('box-shadow','inset 0 0 35px 0px #ffcc33');
+		$('.tachoin').find('.armalabel, .unitlabel').css('color','#ffcc33');
+		$('.tachoin').find('.armalabel, .unitlabel').css('text-shadow','0 0 0.2em #ffcc33');
+	},1500);
+	setTimeout(function(){
+		$('.motorcontrolin').css('box-shadow','inset 0 0 35px 0px #ffcc33');
+		$('.controlelement').css('opacity','1.0');
+		$('.btnbar>button').css('opacity','1.0');
+	},2000);
+};
+// switch the lights off after logout
+amber.ui.FX.lightsOFF = function(){
+	$('.ridedata').css('box-shadow','none');
+	$('.ridedata>div').css({
+		'color':'#494949',
+		'text-shadow':'none',
+		'opacity':'0.1'
+	});
+	$('.fuelin').css('background','#494949');
+	$('.fuelout').css('border-color','#494949');
+	$('.drivein').css('box-shadow','none');
+	$('.drivein').find('.armalabel, .unitlabel').css('color','#494949');
+	$('.drivein').find('.armalabel, .unitlabel').css('text-shadow','none');
+	$('.tachoin').css('box-shadow','none');
+	$('.tachoin').find('.armalabel, .unitlabel').css('color','#494949');
+	$('.tachoin').find('.armalabel, .unitlabel').css('text-shadow','none');
+	$('.motorcontrolin').css('box-shadow','none');
+	$('.controlelement').css('opacity','0.1');
+	$('.btnbar>button').css('opacity','0.1');
+	$('.target_km, .target_kmall, .armalabel').text("0");
+	$('.controllabel').text("100");
+	$('.motorload').css({
+		'width': '0',
+		'box-shadow': 'none'
+	});
 };
 // blinking record symbol due video stream recording
 amber.ui.FX.recordingON = function(){

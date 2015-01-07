@@ -77,7 +77,8 @@ amber.ui.closeVideoStream;		//.done
 // FX - namespace for ui visual effects 
 amber.ui.FX = {};
 // functions:
-amber.ui.FX.lightsON;
+amber.ui.FX.lightsON;			//.done
+amber.ui.FX.lightsOFF;			//.done
 amber.ui.FX.recordingON;		//.done
 amber.ui.FX.notificationON;		//.done
 // amber.net - all network properties are stored here 

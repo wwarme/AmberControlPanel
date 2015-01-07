@@ -1,5 +1,10 @@
+@font-face {
+	font-family: segoe;
+	src: url(segoeui.ttf);
+}
+
 html {
-	font-family: "Segoe UI";
+	font-family: segoe;
 	color: #e0e0e0;
 /* 	overflow: hidden; */
 }
@@ -45,6 +50,7 @@ div.center {
 	top: 10%;
 	height: 75%;
 	width: 100%;
+	background-image: url("../pics/backblack.jpg");
 }
 
 #videocontainer, #mapcontainer {

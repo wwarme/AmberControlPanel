@@ -43,7 +43,7 @@ amber.net.initSocket = function(){
 amber.net.messageReceived = function(socketPackage){
 	// work that protocol!
 	try{
-		// try if data is in json format
+		// try parsing JSON directly from incoming data
 		var incoming = JSON.parse(socketPackage.data);
 		console.log(incoming);
 		switch(incoming.id){
@@ -53,7 +53,6 @@ amber.net.messageReceived = function(socketPackage){
 		case "telemetry":
 			this.processCockpitData(incoming.data);
 			this.processLiveStreamData(incoming.image);
-//			amber.locals.
 			break;
 		case "loginACK":
 			this.loginSuccess(incoming);
@@ -62,7 +61,7 @@ amber.net.messageReceived = function(socketPackage){
 			this.logoutDone();
 			break;
 		case "commandACK":
-			console.log("Command received and ");
+			console.log("Command received and transmitted");
 			break;
 		case "startRecordACK":
 			this.recordingStarted();
@@ -80,24 +79,30 @@ amber.net.messageReceived = function(socketPackage){
 			}
 		}
 	} catch (SyntaxError){
-		// if its NOT json, then it probably is a blob containing 
-		// picture data for the video stream
-		if(socketPackage.data instanceof Blob)
-			amber.net.processLiveStreamData(socketPackage.data);
+		console.log("Unknown dataset:");
+		console.log(socketPackage);
 	}
 };
 // process image data for live video streaming 
 amber.net.processLiveStreamData = function(data){
+	// set the current image data received from server
+	// image data are received as base64 binary strings 
 	amber.media.scene = "data:image/png;base64,"+data;
+	// set the image as src-attribute
 	if($(amber.ui.liveViewL).is(":visible")) // small view in the corner
+	// the binary strings can be set as src urls directly
+	// parsing gets done by html/javascript engine internally
 		amber.ui.liveViewL.src = amber.media.scene;
 	if($(amber.ui.liveViewS).is(":visible")) // main video view
 		amber.ui.liveViewS.src = amber.media.scene;
 };
 // process cockpit and telemetry data 
 amber.net.processCockpitData = function(incoming){
+	// set the current telemetry data (constantly updated)
 	amber.cars.Current = incoming;
+	// write telemetry data into UI
 	amber.ui.setArmatures(incoming);
+	// update cars position
 	amber.locals.updateMarker();
 };
 // process incoming notifications
@@ -139,7 +144,10 @@ amber.net.reqSendCommand = function(command){
 amber.net.startRecord = function(){
 	var data = {};
 	data.callID = this.Param.STARTRECORD;
-	data.data = amber.cars.Current.id;
+	data.data = {
+		carID : amber.cars.Current.id,
+		userID : amber.userID
+	};
 	this.AmberSocket.send(JSON.stringify(data));
 	amber.media.recording = true;
 	amber.ui.FX.recordingON();
@@ -153,7 +161,10 @@ amber.net.recordingStarted = function(){
 amber.net.stopRecord = function(){
 	var data = {};
 	data.callID = this.Param.STOPRECORD;
-	data.data = amber.cars.Current.id;
+	data.data = {
+			carID : amber.cars.Current.id,
+			userID : amber.userID
+		};
 	this.AmberSocket.send(JSON.stringify(data));
 	amber.media.recording = false;
 };
@@ -163,6 +174,7 @@ amber.net.recordingStopped = function(incoming){
 };
 // login call
 amber.net.reqLogin = function(){
+	amber.ui.logBootStatus("anmelden...");
 	var data = {};
 	data.callID = this.Param.GETLOGIN;
 	data.data = amber.ui.getLoginData();
