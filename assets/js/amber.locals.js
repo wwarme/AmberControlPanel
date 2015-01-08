@@ -8,7 +8,7 @@ amber.locals.drawMaps = function(element){
 	$('#'+element).empty();
 	// init osm layers 
 	this.initLayers();
-	this.drawMap(element);
+	this.drawMap();
 	// init vector layer to render route
 	this.initRouteLayer();
 	// add already driven route from other map view
@@ -17,15 +17,19 @@ amber.locals.drawMaps = function(element){
 	this.AmberMap.addLayers([this.RouteLayer]);
 };
 // draw a particular map for amber
-amber.locals.drawMap = function(mapContainer) {
+amber.locals.drawMap = function() {
 	this.AmberMap = {};
 	this.initLayers();
-	// init osm components
-	this.AmberMap = new OpenLayers.Map(mapContainer, {
+	var controls = [new OpenLayers.Control.LayerSwitcher()];
+	// enable full map control if map is to be rendered in full view
+	// else disable any interactions with mini map in the right upper corner
+	if(this.amberMapContainer == 'mapview')
+		controls.push(new OpenLayers.Control.Navigation());
+		// init osm components
+	this.AmberMap = new OpenLayers.Map(this.amberMapContainer, {
 		projection: new OpenLayers.Projection("EPSG:900913"),
 		displayProjection: new OpenLayers.Projection("EPSG:4326"),
-		controls: [new OpenLayers.Control.Navigation(),
-		           new OpenLayers.Control.LayerSwitcher()],
+		controls: controls,
 		maxExtent: new OpenLayers.Bounds(
 								-20037508.34,
 								-20037508.34,
@@ -73,10 +77,10 @@ amber.locals.updateMarker = function(){
 					   this.AmberMap.projection)
 	);
 	// only for testing!//
-//	this.LongLat.lon += 0.0001;
-//	this.LongLat.lat += 0.0001;
-	this.LongLat.lon = amber.cars.Current.lon;
-	this.LongLat.lat = amber.cars.Current.lat;	
+	this.LongLat.lon += 0.000001;
+	this.LongLat.lat += 0.000001;
+//	this.LongLat.lon = amber.cars.Current.lon;
+//	this.LongLat.lat = amber.cars.Current.lat;	
 	// second point, pushed into points-array, containing the updated 
 	// lat-long position
 	points.push(new OpenLayers.Geometry.Point(this.LongLat.lon,this.LongLat.lat)
@@ -107,7 +111,9 @@ amber.locals.updateMarker = function(){
     // ... and render in the map
     this.Marker.moveTo(newPx);
     // centering for new position
-    this.jumpTo();
+    if(this.amberMapContainer == 'map')
+    	this.jumpTo();
+    
 };
 // reset center inside map
 amber.locals.jumpTo = function() {

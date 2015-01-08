@@ -105,8 +105,8 @@ amber.ui.appendCars = function(data){
 };
 // pick a car:
 amber.ui.carPicked = function(element){
-	// set the current car 
-	amber.carID = element.attr('carid');
+	// set the current car id as integer (attributes can only hold strings!)
+	amber.carID = parseInt(element.attr('carid'));
 	// start data streaming from the picked car
 	amber.net.startDataStream();
 	// reset old route viewed in the map 
@@ -232,7 +232,6 @@ amber.ui.FX.notificationON = function(){
 		},500);
 	}
 };
-
 
 
 

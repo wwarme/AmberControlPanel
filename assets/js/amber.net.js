@@ -1,3 +1,4 @@
+
 // initiate websocket connection
 amber.net.initSocket = function(){
 	this.AmberSocket = new WebSocket(this.Param.SOCKETADRESS);
