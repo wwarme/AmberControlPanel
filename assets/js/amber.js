@@ -75,6 +75,8 @@ amber.ui.openLogin;				//.done
 amber.ui.getLoginData;			//.done
 amber.ui.clearLogin;			//.done
 amber.ui.closeVideoStream;		//.done
+amber.ui.toggleCommandCenter;	//.done
+amber.ui.commandPicked;			//.done
 // FX - namespace for ui visual effects 
 amber.ui.FX = {};
 // functions:
@@ -113,7 +115,8 @@ amber.net.carsError;			//.done
 amber.net.AmberSocket = {};
 //amber.net.Param - params for socket.send commands
 amber.net.Param = {};
-amber.net.Param.SOCKETADRESS = "ws://78.53.138.185:3001/websocket/";
+amber.net.Param.SOCKETADRESS = "ws://10.220.6.118:3001/websocket/";
+amber.net.Param.DOWNLOADADRESS = "http://10.220.6.118:3001/download";
 // send commands over socket:
 amber.net.Param.STARTSTREAM = "startStream";
 amber.net.Param.STOPSTREAM = "stopStream";

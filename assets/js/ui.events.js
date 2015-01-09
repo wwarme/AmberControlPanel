@@ -43,11 +43,15 @@ $(document).ready(function(){
 	});
 	// open commands view
 	$(document).on("click","#btncommands",function(){
-		
+		amber.ui.toggleCommandCenter();
 	});
 	// logout from Amber
 	$(document).on("click","#btnlogout",function(){
 		amber.net.reqLogout();
+	});
+	// choose a command to be sent to the OBU
+	$(document).on("click",".command",function(){
+		amber.ui.commandPicked();
 	});
 });
 

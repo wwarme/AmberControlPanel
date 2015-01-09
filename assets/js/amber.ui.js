@@ -68,6 +68,13 @@ amber.ui.closeLogin = function(){
 		$('.carpickerbody').fadeIn("fast");
 	});
 };
+// open command center:
+amber.ui.toggleCommandCenter = function(){
+	if($('.commandbar').is(":visible"))
+		$('.commandbar').fadeOut("fast");
+	else
+		$('.commandbar').fadeIn("fast");
+};
 // open login dialog after logout
 amber.ui.openLogin = function(s){
 	$('.carpickerbody').fadeOut();
@@ -114,6 +121,11 @@ amber.ui.carPicked = function(element){
 	// close car picker
 	this.closeCarPicker();
 	this.FX.lightsON();
+};
+// pick a command:
+amber.ui.commandPicked = function(){
+	// close command center
+	this.toggleCommandCenter();
 };
 // set ambers armature labels, represented by css-classes
 amber.ui.setArmatures = function(data){

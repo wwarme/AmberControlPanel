@@ -1,8 +1,7 @@
 .commandbar {
 	position: absolute;
+	display: none;
 	width: 100%;
-	height: 5%;
-	background: #ffcc33;
 	z-index: 10;
 	text-align: center;
 	left: 0;
@@ -11,10 +10,17 @@
 }
 
 .command {
-	background: #080808;
-	position: absolute; 
+	margin: 4px;
+	display: inline-block;
+	height: 100%;
+	width: 20%;
+	background: #595959;
 }
 
 .commandlabel {
-	
+	margin: 3%;
+	line-height: 100%;
+	text-align: center;
+	cursor: pointer;
+	color: #ffcc33;
 }

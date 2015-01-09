@@ -133,7 +133,7 @@ amber.net.stopDataStream = function(){
 	var data = {};
 	data.callID = this.Param.STOPSTREAM;
 	data.data = amber.cars.Current.id;
-	this.AmberSocket.send(JSON.stringify(data));
+	this.AmberSocket.send(JSON.stringify(data));	
 };
 //send a command to the on board unit via WebSocket
 amber.net.reqSendCommand = function(command){
