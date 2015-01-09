@@ -96,10 +96,13 @@ amber.ui.appendCars = function(data){
 		var car = data[l];
 		var imgUrl = "data:image/png;base64,"+car.image;
 		var element = '<li class="car"'
+					 +'style="background: url('+imgUrl+');'
+					 +       'background-repeat: no-repeat;'
+					 +       'background-position: 50% 50%;'
+					 +       'background-color: #000000;"'
 					 +'carname="'+car.vehicleName+'"'
 					 +'carid="'+car.vehicleID+'">';
 		element += '<p>'+car.vehicleName+'</p>';
-		element += '<img src="'+imgUrl+'">';
 		element += '</li>';
 		// push the new elements string representative in a list
 		concat.push(element);
@@ -122,6 +125,13 @@ amber.ui.carPicked = function(element){
 	this.closeCarPicker();
 	this.FX.lightsON();
 };
+// enable video download button: 
+amber.ui.toggleDownloadBtn = function(){
+	if($('#btndownload').is(":visible"))
+		$('#btndownload').fadeOut("fast");
+	else
+		$('#btndownload').fadeIn("fast");
+};
 // pick a command:
 amber.ui.commandPicked = function(){
 	// close command center
@@ -140,13 +150,13 @@ amber.ui.setArmatures = function(data){
 	$('.drivetarget').text(data.drive);
 	$('.tachotarget').text(data.speed);
 	var gas = data.fuel+"%";
-	var load = data.engineLoad+"%";
+	var load = parseInt(data.engineLoad)+"%";
 	$('.fuelin').css('width',gas);
-	if(data.engineLoad && data.engineLoad > 0)
+	if(data.engineLoad && data.engineLoad > 0){
 		$('.motorload').css('width',load)
-					   .css('box-shadow','0 -11px 61px 48px #ffcc33')
-					   .text(load);
-	else
+					   .css('box-shadow','0 -11px 61px 48px #ffcc33');
+	$('.motorload_label').text(load);
+	} else
 		$('.motorload').css('box-shadow','none').css('width','0');
 };
 // retrieve logindata from login dialog
@@ -229,7 +239,7 @@ amber.ui.FX.lightsOFF = function(){
 // blinking record symbol due video stream recording
 amber.ui.FX.recordingON = function(){
 	if(amber.media.recording){
-		$('#btnrecord').fadeTo('slow', 0.1).fadeTo('slow', 1.0);
+		$('#btnrecord').fadeTo('fast', 0.1).fadeTo('fast', 1.0);
 		setTimeout(function(){
 			amber.ui.FX.recordingON();
 		},500);

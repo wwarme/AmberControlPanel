@@ -24,9 +24,9 @@
 <!-- <script type="text/javascript" src="js/dummyshit.js"></script> -->
 <script type="text/javascript">
 $(document).ready(function(){
-// 	$('.loginfade, .loginbody, .loginmaterial').toggle();
+	$('.loginfade, .loginbody, .loginmaterial').toggle();
 	amber.ui.initLiveView();
-	amber.net.initSocket();
+// 	amber.net.initSocket();
 });
 </script>
 </head>
@@ -44,7 +44,7 @@ $(document).ready(function(){
 			<div class="carpicker">
 				<ul class="carcontainer">
 					<li class="car"><p>Audi A8</p>
-						<img src="pics/command.png" style="width:100%;">
+<!-- 						<img src="pics/command.png" style="width:100%;"> -->
 					</li>
 				</ul>
 			</div>
@@ -75,6 +75,7 @@ $(document).ready(function(){
 			<button tabindex="-1" id="btncarpicker" title="Anderes Fahrzeug wählen"></button>
 			<button tabindex="-1" id="btnswitchview" title="Karten-/Videoansicht wechseln"></button>
 			<button tabindex="-1" id="btnrecord" title="Videoaufnahme starten">REC</button>
+			<button tabindex="-1" id="btndownload" title="Video herunterladen"></button>
 			<button tabindex="-1" id="btnscreenshot" title="Screenshot"></button>
 			<button tabindex="-1" id="btncommands" title="Befehl übermitteln"></button>
 			<button tabindex="-1" id="btnlogout" title="Abmelden"></button>

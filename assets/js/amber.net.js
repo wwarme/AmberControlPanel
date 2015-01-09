@@ -68,7 +68,7 @@ amber.net.messageReceived = function(socketPackage){
 			this.recordingStarted();
 			break;
 		case "stopRecordACK":
-			this.recordingStopped(incoming);
+			this.recordingStopped();
 			break;
 		case "error":
 			console.log("Error: "+incoming.data);
@@ -171,8 +171,10 @@ amber.net.stopRecord = function(){
 	amber.media.recording = false;
 };
 // recording has been stopped on server side
-amber.net.recordingStopped = function(incoming){
+amber.net.recordingStopped = function(){
 	console.log("Recording stopped!");
+	// enable button to start download
+	amber.ui.toggleDownloadBtn();
 };
 // login call
 amber.net.reqLogin = function(){

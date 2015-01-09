@@ -28,10 +28,7 @@ $(document).ready(function(){
 	});
 	// record a video on server side
 	$(document).on("click", "#btnrecord", function(){
-		if(!amber.media.recording)
-			amber.net.startRecord();
-		else
-			amber.net.stopRecord();
+		amber.media.toggleRecording();
 	});
 	// choose a car for live control
 	$(document).on("click", ".car", function(){
@@ -40,6 +37,10 @@ $(document).ready(function(){
 	// make a screenshot from the latest image blob sent
 	$(document).on("click","#btnscreenshot",function(){
 		amber.media.screenshot();
+	});
+	// start download of recorded video
+	$(document).on("click","#btndownload",function(){
+		amber.media.downloadVideo();
 	});
 	// open commands view
 	$(document).on("click","#btncommands",function(){

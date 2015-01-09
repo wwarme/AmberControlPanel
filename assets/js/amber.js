@@ -32,7 +32,9 @@ amber.media = {};
 amber.media.recording = false;
 amber.media.scene;
 // functions:
-amber.media.screenshot; 
+amber.media.screenshot; 			//.done
+amber.media.downloadVideo;			//.done
+amber.media.toggleRecording;		//.done
 // amber.cars, containing all car data available
 amber.cars = {};
 // list of available cars
@@ -77,6 +79,7 @@ amber.ui.clearLogin;			//.done
 amber.ui.closeVideoStream;		//.done
 amber.ui.toggleCommandCenter;	//.done
 amber.ui.commandPicked;			//.done
+amber.ui.toggleDownloadBtn;		//.done
 // FX - namespace for ui visual effects 
 amber.ui.FX = {};
 // functions:
