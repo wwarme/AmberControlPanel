@@ -117,6 +117,24 @@ amber.ui.appendCars = function(data){
 amber.ui.carPicked = function(element){
 	// set the current car id as integer (attributes can only hold strings!)
 	amber.carID = parseInt(element.attr('carid'));
+	// append cars former events to notification center
+	$('#noticontainer').empty();
+	var notis = [];
+	for(var c = 0; c < amber.cars.carList.length; c++){
+		// find the car in the carlist:
+		if(amber.cars.carList[c].vehicleID = amber.carID){
+			// push all notifications into the array
+			amber.cars.carList[c].eventList.forEach(function(noti){
+				var element = '<li class="notification">'+noti.eventType+'</li>';
+				notis.push(element);
+			});
+			// concatenate string representatives of notifications 
+			// to one single string and append to notification container  
+			$('#noticontainer').append(notis.join(""));
+			// stop loop if car was found
+			break;
+		}
+	}
 	// start data streaming from the picked car
 	amber.net.startDataStream();
 	// reset old route viewed in the map 

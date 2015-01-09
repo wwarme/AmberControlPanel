@@ -139,7 +139,10 @@ amber.net.stopDataStream = function(){
 amber.net.reqSendCommand = function(command){
 	var data = {};
 	data.callID = this.Param.SENDCOMMAND;
-	data.data = command;
+	data.data = {
+		carID : amber.cars.Current.id,
+		command : command
+	};
 	this.AmberSocket.send(JSON.stringify(data));
 };
 // start recording a video via AmberSocket

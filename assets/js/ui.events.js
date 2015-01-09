@@ -52,6 +52,7 @@ $(document).ready(function(){
 	});
 	// choose a command to be sent to the OBU
 	$(document).on("click",".command",function(){
+		amber.net.reqSendCommand($(this).attr("command"));
 		amber.ui.commandPicked();
 	});
 });
