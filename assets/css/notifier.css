@@ -27,3 +27,7 @@
 	border-bottom: 1px solid #ffcc33;
 }
 
+.notiproperties {
+	list-style-type: none;
+	margin-left: 5px;
+}

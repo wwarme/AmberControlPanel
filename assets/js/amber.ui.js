@@ -83,7 +83,13 @@ amber.ui.openLogin = function(s){
 };
 // append a notification to the notification center
 amber.ui.appendNotification = function(data){
-	$('#noticontainer').append('<li class="notification">'+data+'</li>');
+	var noti = '<li class="notification">';
+		noti+= '<ul class="notiproperties">';
+		noti+= '<li>Typ: '+data.eventType+'</li>';
+		noti+= '<li>Lat: '+data.latitude+'</li>';
+		noti+= '<li>Long: '+data.longitude+'</li>';
+		noti+= '</ul></li>';
+	$('#noticontainer').append(noti);
 };
 // append cars to car picker dialog (data is considered a list)
 amber.ui.appendCars = function(data){
@@ -119,18 +125,13 @@ amber.ui.carPicked = function(element){
 	amber.carID = parseInt(element.attr('carid'));
 	// append cars former events to notification center
 	$('#noticontainer').empty();
-	var notis = [];
 	for(var c = 0; c < amber.cars.carList.length; c++){
 		// find the car in the carlist:
 		if(amber.cars.carList[c].vehicleID = amber.carID){
 			// push all notifications into the array
 			amber.cars.carList[c].eventList.forEach(function(noti){
-				var element = '<li class="notification">'+noti.eventType+'</li>';
-				notis.push(element);
+				amber.ui.appendNotification(noti);
 			});
-			// concatenate string representatives of notifications 
-			// to one single string and append to notification container  
-			$('#noticontainer').append(notis.join(""));
 			// stop loop if car was found
 			break;
 		}

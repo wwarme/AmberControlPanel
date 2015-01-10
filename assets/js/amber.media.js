@@ -1,7 +1,7 @@
 // amber.media namespace
 amber.media.screenshot = function(){
 	// view the image in a new tab so the user can save it to the pc
-	window.open(amber.net.Param.DOWNLOADADRESS);
+	window.open(this.scene);
 };
 // init video download from server
 amber.media.downloadVideo = function(){

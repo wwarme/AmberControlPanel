@@ -28,6 +28,8 @@ amber.locals.drawMaps;				//.done
 amber.locals.updateMarker;			//.done
 amber.locals.jumpTo;				//.done
 
+var i = 0;
+
 // amber.media, containing all demanded media data like screenshots and videos
 amber.media = {};
 amber.media.recording = false;

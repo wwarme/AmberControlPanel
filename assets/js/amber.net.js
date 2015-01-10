@@ -46,6 +46,9 @@ amber.net.messageReceived = function(socketPackage){
 	try{
 		// try parsing JSON directly from incoming data
 		var incoming = JSON.parse(socketPackage.data);
+		if(i < 5)
+			console.log(incoming);
+		i++;
 		switch(incoming.id){
 		case "streamClosed":
 			amber.ui.closeVideoStream();
@@ -106,6 +109,9 @@ amber.net.processCockpitData = function(incoming){
 	amber.ui.setArmatures(incoming);
 	// update cars position
 	amber.locals.updateMarker();
+	// notification incoming?
+	if(incoming.notification != null)
+		amber.ui.appendNotification(incoming.notification);
 };
 // process incoming notifications
 amber.net.processNotification = function(incoming){
@@ -125,14 +131,20 @@ amber.net.processNotification = function(incoming){
 amber.net.startDataStream = function(){
 	var data = {};
 	data.callID = this.Param.STARTSTREAM;
-	data.data = amber.carID;
+	data.data = {
+			carID : amber.carID,
+			userID : amber.userID
+	};
 	this.AmberSocket.send(JSON.stringify(data));
 };
 // stop the data stream in order to change the car to observe
 amber.net.stopDataStream = function(){
 	var data = {};
 	data.callID = this.Param.STOPSTREAM;
-	data.data = amber.cars.Current.id;
+	data.data = {
+			carID : amber.cars.Current.id,
+			userID : amber.userID
+	};
 	this.AmberSocket.send(JSON.stringify(data));	
 };
 //send a command to the on board unit via WebSocket
