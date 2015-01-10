@@ -6,15 +6,21 @@ amber.locals.drawMaps = function(element){
 	amber.locals.amberMapContainer = element;
 	// empty before new rendering
 	$('#'+element).empty();
+	try{
+		this.initLayers();
+		this.drawMap();
+		// init vector layer to render route
+		this.initRouteLayer();
+		// add already driven route from other map view
+		this.RouteLayer.addFeatures(this.Route);
+		// add new vector layer to osm map
+		this.AmberMap.addLayers([this.RouteLayer]);
+	} catch (E){
+		console.log("Map not available due to network issues");
+		this.showErrorLayer(element);
+	}
 	// init osm layers 
-	this.initLayers();
-	this.drawMap();
-	// init vector layer to render route
-	this.initRouteLayer();
-	// add already driven route from other map view
-	this.RouteLayer.addFeatures(this.Route);
-	// add new vector layer to osm map
-	this.AmberMap.addLayers([this.RouteLayer]);
+	
 };
 // draw a particular map for amber
 amber.locals.drawMap = function() {
@@ -62,6 +68,12 @@ amber.locals.initLayers = function(){
 amber.locals.initRouteLayer = function(){
 	this.RouteLayer = new OpenLayers.Layer.Vector("Line Layer");
 	this.AmberMap.addLayers([this.RouteLayer]);
+};
+// show an error view if map could not be rendered (e.g. due to network issues)
+amber.locals.showErrorLayer = function(element){
+	var error = '<div class="maperror">';
+	error += "Karte nicht verfügbar</div>";
+	$('#'+element).css('background','#080808').append(error);
 };
 // reset route e.g. for a new car to be viewed
 amber.locals.resetRoute = function(){

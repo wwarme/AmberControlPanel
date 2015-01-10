@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="utf-8">
 <title>Amber Control Panel</title>
 <link rel="shortcut icon" href="pics/amberico.png" type="image/x-icon" />
 <script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script>
@@ -26,7 +26,7 @@
 $(document).ready(function(){
 // 	$('.loginfade, .loginbody, .loginmaterial').toggle();
 	amber.ui.initLiveView();
-	amber.net.initSocket();
+	amber.net.initSocket();	 
 });
 </script>
 </head>
@@ -38,7 +38,7 @@ $(document).ready(function(){
 	</div>
 	<div class="carpickerbody">
 		<div class="carpickerrow">
-			<p class="welcome">WÄHLEN SIE EIN FAHRZEUG:</p>
+			<p class="welcome">WÃ„HLEN SIE EIN FAHRZEUG:</p>
 		</div>
 		<div class="carpickerrow">
 			<div class="carpicker">
@@ -72,12 +72,12 @@ $(document).ready(function(){
 	<header class="banner">
 		<div class="btnbar">
 			<button tabindex="-1" id="btnnotifier" title="Benachrichtigungen anzeigen"></button>
-			<button tabindex="-1" id="btncarpicker" title="Anderes Fahrzeug wählen"></button>
+			<button tabindex="-1" id="btncarpicker" title="Anderes Fahrzeug wï¿½hlen"></button>
 			<button tabindex="-1" id="btnswitchview" title="Karten-/Videoansicht wechseln"></button>
 			<button tabindex="-1" id="btnrecord" title="Videoaufnahme starten">REC</button>
 			<button tabindex="-1" id="btndownload" title="Video herunterladen"></button>
 			<button tabindex="-1" id="btnscreenshot" title="Screenshot"></button>
-			<button tabindex="-1" id="btncommands" title="Befehl übermitteln"></button>
+			<button tabindex="-1" id="btncommands" title="Befehl ï¿½bermitteln"></button>
 			<button tabindex="-1" id="btnlogout" title="Abmelden"></button>
 		</div>
 		<div class="ridedata">
@@ -160,11 +160,11 @@ $(document).ready(function(){
 					</div>
 					<div class="controlelement airtemp" title="Ansaugluft Temperatur">
 						<p class="controllabel target_airtemp">-</p>
-						<p class="controlunit">(°C)</p>
+						<p class="controlunit">(ï¿½C)</p>
 					</div>
-					<div class="controlelement coolingliq" title="Kühlflüssigkeit Temperatur">
+					<div class="controlelement coolingliq" title="Kï¿½hlflï¿½ssigkeit Temperatur">
 						<p class="controllabel target_coolingliq">-</p>
-						<p class="controlunit">(°C)</p>
+						<p class="controlunit">(ï¿½C)</p>
 					</div>
 					<div class="controlelement fuelpress" title="Kraftstoffdruck">
 						<p class="controllabel target_fuelpress">-</p>

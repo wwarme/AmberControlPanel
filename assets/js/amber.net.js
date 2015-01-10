@@ -46,7 +46,6 @@ amber.net.messageReceived = function(socketPackage){
 	try{
 		// try parsing JSON directly from incoming data
 		var incoming = JSON.parse(socketPackage.data);
-		console.log(incoming);
 		switch(incoming.id){
 		case "streamClosed":
 			amber.ui.closeVideoStream();
@@ -96,6 +95,7 @@ amber.net.processLiveStreamData = function(data){
 		amber.ui.liveViewL.src = amber.media.scene;
 	if($(amber.ui.liveViewS).is(":visible")) // main video view
 		amber.ui.liveViewS.src = amber.media.scene;
+	$('.waitingforstream').toggle();
 };
 // process cockpit and telemetry data 
 amber.net.processCockpitData = function(incoming){
@@ -157,6 +157,7 @@ amber.net.startRecord = function(){
 	amber.media.recording = true;
 	amber.ui.FX.recordingON();
 	// set recording to false in case server returns an error!
+	console.log("Recording started!");
 };	
 // record has been started on server side! 
 amber.net.recordingStarted = function(){

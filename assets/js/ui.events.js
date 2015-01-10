@@ -55,6 +55,17 @@ $(document).ready(function(){
 		amber.net.reqSendCommand($(this).attr("command"));
 		amber.ui.commandPicked();
 	});
+	// login via enter:
+	$(document).keypress(function(e){
+		console.log(e);
+		if(e.which == 13 && e.target != "button.loginsubmit")
+			if($('.loginbody').is(':visible')){
+				if(amber.net.AmberSocket.readyState == 1)
+					amber.net.reqLogin(); // connect if ready
+				else // inform user if its not ready
+					amber.ui.logBootStatus("Keine Verbindung zum Server vorhanden, bitte warten...");
+			}
+	});
 });
 
 

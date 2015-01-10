@@ -81,6 +81,18 @@ div.center {
 	height: 100%;
 }
 
+.maperror {
+	text-align: center;
+	font-size: 20px;
+	position: absolute;
+	width: 180px;
+	height: 30px;
+	left: 50%;
+	top: 50%;
+	margin-left: -90px;
+	margin-top: -15px;
+}
+
 .liveview {
 	height: 100%;
 	width: 100%;

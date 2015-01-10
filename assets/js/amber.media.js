@@ -6,7 +6,7 @@ amber.media.screenshot = function(){
 // init video download from server
 amber.media.downloadVideo = function(){
 	window.open(amber.net.Param.DOWNLOADADRESS);
-	this.toggleRecording();
+	amber.ui.toggleDownloadBtn();
 };
 // toggle recording state
 amber.media.toggleRecording = function(){
