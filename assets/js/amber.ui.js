@@ -58,6 +58,17 @@ amber.ui.openCarPicker = function(){
 	this.closeVideoStream();
 	$('.loginfade, .loginmaterial, .carpickerbody').fadeIn("fast");
 };
+// open dialog to add car to database
+amber.ui.toggleAddCar = function(){
+	console.log("toggled!");
+	if($('.caraddbody').is(':visible')){
+		$('.caraddbody').fadeOut("fast");
+		$('.carpickerbody').fadeIn("fast");
+	} else {
+		$('.carpickerbody').fadeOut();
+		$('.loginfade, .loginmaterial, .caraddbody').fadeIn("fast");
+	}
+};
 // close car picker dialog
 amber.ui.closeCarPicker = function(){
 	$('.loginfade, .loginmaterial, .carpickerbody').fadeOut("fast");
@@ -65,6 +76,8 @@ amber.ui.closeCarPicker = function(){
 // close login screen and switch to carpicker
 amber.ui.closeLogin = function(){
 	$('.loginbody').fadeOut("fast",function(){
+		if($('.caraddbody').is(':visible'))
+			amber.ui.toggleAddCar();
 		$('.carpickerbody').fadeIn("fast");
 	});
 };
@@ -77,7 +90,7 @@ amber.ui.toggleCommandCenter = function(){
 };
 // open login dialog after logout
 amber.ui.openLogin = function(s){
-	$('.carpickerbody').fadeOut();
+	$('.carpickerbody, .caraddbody').fadeOut();
 	this.FX.lightsOFF();
 	$('.loginfade, .loginmaterial, .loginbody').fadeIn("fast");
 };
@@ -151,6 +164,13 @@ amber.ui.toggleDownloadBtn = function(){
 	else
 		$('#btndownload').fadeIn("fast");
 };
+//enable download of screenshot:
+amber.ui.toggleDownloadBtnScreen = function(){
+	if($('#btndownloadscreen').is(":visible"))
+		$('#btndownloadscreen').fadeOut("fast");
+	else
+		$('#btndownloadscreen').fadeIn("fast");
+};
 // pick a command:
 amber.ui.commandPicked = function(){
 	// close command center
@@ -162,11 +182,11 @@ amber.ui.setArmatures = function(data){
 	$('.target_km').text(data.km);
 	$('.target_airflow').text(data.airFlow);
 	$('.target_airpress').text(data.airPressure);
-	$('.target_airtemp').text(data.airPressure);
+	$('.target_airtemp').text(data.airTemp);
 	$('.target_coolingliq').text(data.coolingLiqTemp);
 	$('.target_fuelpress').text(data.fuelPressure);
 	$('.target_eviropress').text(data.enviroPressure);
-	$('.drivetarget').text(data.drive);
+	$('.drivetarget').text(data.revolutions);
 	$('.tachotarget').text(data.speed);
 	var gas = data.fuel+"%";
 	var load = parseInt(data.engineLoad)+"%";
@@ -177,6 +197,10 @@ amber.ui.setArmatures = function(data){
 	$('.motorload_label').text(load);
 	} else
 		$('.motorload').css('box-shadow','none').css('width','0');
+};
+// retrieve new cars id from input field
+amber.ui.getNewCarID = function(){
+	return parseInt($('.loginfield[type="obuid"]').val());
 };
 // retrieve logindata from login dialog
 amber.ui.getLoginData = function(){

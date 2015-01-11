@@ -1,0 +1,41 @@
+.caraddbody {
+	position: absolute;
+	display: none;
+	border-radius: 8px;
+	width: 500px;
+	height: 400px;
+	left: 50%;
+	top: 50%;
+	margin-left: -250px;
+	margin-top: -200px;
+	z-index: 22;
+	overflow: hidden;
+}
+
+.addcarrow {
+	margin-top: 140px;
+}
+
+button.newcarsubmit {
+	transition: background-color 200ms;
+	border-style: none;
+	border: 1px solid #e0e0e0;
+	color: inherit;
+	background-color: transparent;
+	font-family: inherit;
+	letter-spacing: 2px;
+	height: 30px;
+	width: 170px;
+	margin-left: 150px;
+	margin-top: 20px;
+}
+
+button.newcarsubmit:focus, 
+button.newcarsubmit:hover {
+	outline: none;
+	border-color: #ffcc33;
+}
+
+button:active {
+	background-color: #ffcc33;
+}

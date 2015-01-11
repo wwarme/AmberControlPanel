@@ -81,51 +81,55 @@ amber.locals.resetRoute = function(){
 };
 // move the marker to the long and lat given in amber.locals.LongLat
 amber.locals.updateMarker = function(){
-	// make array for 2 points 
-	// first point is the point before the update
-	var points = new Array(
-			new OpenLayers.Geometry.Point(this.LongLat.lon,this.LongLat.lat)
+//	if(!this.AmberMap){
+//		amber.ui.drawMaps('map');
+//	}
+	if(this.AmberMap){
+		// make array for 2 points 
+		// first point is the point before the update
+		var points = new Array(
+				new OpenLayers.Geometry.Point(this.LongLat.lon,this.LongLat.lat)
+				.transform(this.AmberMap.displayProjection,
+						   this.AmberMap.projection)
+		);
+		// only for testing!//
+//		this.LongLat.lon += 0.000001;
+//		this.LongLat.lat += 0.000001;
+		this.LongLat.lon = amber.cars.Current.lon;
+		this.LongLat.lat = amber.cars.Current.lat;	
+		// second point, pushed into points-array, containing the updated 
+		// lat-long position
+		points.push(new OpenLayers.Geometry.Point(this.LongLat.lon,this.LongLat.lat)
 			.transform(this.AmberMap.displayProjection,
-					   this.AmberMap.projection)
-	);
-	// only for testing!//
-//	this.LongLat.lon += 0.000001;
-//	this.LongLat.lat += 0.000001;
-	this.LongLat.lon = amber.cars.Current.lon;
-	this.LongLat.lat = amber.cars.Current.lat;	
-	// second point, pushed into points-array, containing the updated 
-	// lat-long position
-	points.push(new OpenLayers.Geometry.Point(this.LongLat.lon,this.LongLat.lat)
-		.transform(this.AmberMap.displayProjection,
-				   this.AmberMap.projection));
-	/***************************/
-	// generate a line between the two points
-	var line = new OpenLayers.Geometry.LineString(points);
-	// apply style definition for the route drawn in map
-	var style = { 
-			  strokeColor: '#ffcc33', 
-			  strokeOpacity: 1.0,
-			  strokeWidth: 3
-	};
-	// generate OL line feature, based on the line
-	var lineFeature = new OpenLayers.Feature.Vector(line, null, style);
-	// add line to the vector layer to render ongoing route
-	this.RouteLayer.addFeatures([lineFeature]);
-	// save current route-point in amber.locals.Route (array)
-	this.Route.push(lineFeature);
-	// update position on map, generate LonLat-position...
-    var newPx = this.AmberMap.getLayerPxFromViewPortPx(
-    		this.AmberMap.getPixelFromLonLat(
-    				new OpenLayers.LonLat(this.LongLat.lon, 
-    									  this.LongLat.lat).transform(
-    						this.AmberMap.displayProjection, 
-    						this.AmberMap.projection)));
-    // ... and render in the map
-    this.Marker.moveTo(newPx);
-    // centering for new position
-    if(this.amberMapContainer == 'map')
-    	this.jumpTo();
-    
+					   this.AmberMap.projection));
+		/***************************/
+		// generate a line between the two points
+		var line = new OpenLayers.Geometry.LineString(points);
+		// apply style definition for the route drawn in map
+		var style = { 
+				  strokeColor: '#ffcc33', 
+				  strokeOpacity: 1.0,
+				  strokeWidth: 3
+		};
+		// generate OL line feature, based on the line
+		var lineFeature = new OpenLayers.Feature.Vector(line, null, style);
+		// add line to the vector layer to render ongoing route
+		this.RouteLayer.addFeatures([lineFeature]);
+		// save current route-point in amber.locals.Route (array)
+		this.Route.push(lineFeature);
+		// update position on map, generate LonLat-position...
+	    var newPx = this.AmberMap.getLayerPxFromViewPortPx(
+	    		this.AmberMap.getPixelFromLonLat(
+	    				new OpenLayers.LonLat(this.LongLat.lon, 
+	    									  this.LongLat.lat).transform(
+	    						this.AmberMap.displayProjection, 
+	    						this.AmberMap.projection)));
+	    // ... and render in the map
+	    this.Marker.moveTo(newPx);
+	    // centering for new position
+	    if(this.amberMapContainer == 'map')
+	    	this.jumpTo();
+	}
 };
 // reset center inside map
 amber.locals.jumpTo = function() {

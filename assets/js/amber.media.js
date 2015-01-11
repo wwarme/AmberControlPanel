@@ -1,11 +1,10 @@
 // amber.media namespace
 amber.media.screenshot = function(){
-	// view the image in a new tab so the user can save it to the pc
-	window.open(this.scene);
+	window.open(amber.net.Param.DOWNLOADADRESS+amber.net.Param.SCREEN);
 };
 // init video download from server
 amber.media.downloadVideo = function(){
-	window.open(amber.net.Param.DOWNLOADADRESS);
+	window.open(amber.net.Param.DOWNLOADADRESS+amber.net.Param.VIDEO);
 	amber.ui.toggleDownloadBtn();
 };
 // toggle recording state

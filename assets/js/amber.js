@@ -27,9 +27,6 @@ amber.locals.drawMap;				//.done
 amber.locals.drawMaps;				//.done
 amber.locals.updateMarker;			//.done
 amber.locals.jumpTo;				//.done
-
-var i = 0;
-
 // amber.media, containing all demanded media data like screenshots and videos
 amber.media = {};
 amber.media.recording = false;
@@ -83,6 +80,8 @@ amber.ui.closeVideoStream;		//.done
 amber.ui.toggleCommandCenter;	//.done
 amber.ui.commandPicked;			//.done
 amber.ui.toggleDownloadBtn;		//.done
+amber.ui.toggleAddCar;			//.done
+amber.ui.getNewCarID; 			//.done
 // FX - namespace for ui visual effects 
 amber.ui.FX = {};
 // functions:
@@ -116,13 +115,18 @@ amber.net.reqLogout;			//.done
 amber.net.logoutDone;			//.done
 amber.net.reqCars;				//.done	
 amber.net.carsSuccess;			//.done
-amber.net.carsError;			//.done
+amber.net.addCar;				//.done
+amber.net.addCarSuccess;		//.done
+amber.net.reqScreenshot;		//.done
 // amber.net.AmberSocket - WebSocket-based data streaming infrastructure
 amber.net.AmberSocket = {};
 //amber.net.Param - params for socket.send commands
 amber.net.Param = {};
-amber.net.Param.SOCKETADRESS = "ws://192.168.0.108:3001/websocket/";
-amber.net.Param.DOWNLOADADRESS = "http://192.168.0.108:3001/download";
+amber.net.Param.IP = "192.168.0.23";
+amber.net.Param.SOCKETADRESS = "ws://"+amber.net.Param.IP+":3001/websocket/";
+amber.net.Param.DOWNLOADADRESS = "http://"+amber.net.Param.IP+":3001/";
+amber.net.Param.SCREEN = "screenshot";
+amber.net.Param.VIDEO = "download";
 // send commands over socket:
 amber.net.Param.STARTSTREAM = "startStream";
 amber.net.Param.STOPSTREAM = "stopStream";
@@ -132,6 +136,8 @@ amber.net.Param.GETCARS = "requestCars";
 amber.net.Param.SENDCOMMAND = "sendCommand";
 amber.net.Param.STARTRECORD = "startRecord";
 amber.net.Param.STOPRECORD = "stopRecord";
+amber.net.Param.ADDCAR = "addCar";
+amber.net.Param.GETSCREENSHOT = "requestScreenshot";
 
 
 

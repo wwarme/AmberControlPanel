@@ -13,6 +13,7 @@
 <link rel="stylesheet" type="text/css" href="css/notifier.css">
 <link rel="stylesheet" type="text/css" href="css/headermenu.css">
 <link rel="stylesheet" type="text/css" href="css/commandbar.css">
+<link rel="stylesheet" type="text/css" href="css/addcar.css">
 <script type="text/javascript" src="js/jquery.js"></script>
 <!-- amber client namespace incoming -->
 <script type="text/javascript" src="js/amber.js"></script>
@@ -25,6 +26,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 // 	$('.loginfade, .loginbody, .loginmaterial').toggle();
+// 	$('.loginbody, .carpickerbody').toggle();
 	amber.ui.initLiveView();
 	amber.net.initSocket();	 
 });
@@ -37,6 +39,7 @@ $(document).ready(function(){
 		<div class="loginsepline"></div>	
 	</div>
 	<div class="carpickerbody">
+		<button tabindex="-1" id="btnaddcar" title="Fahrzeug hinzufügen"></button>
 		<div class="carpickerrow">
 			<p class="welcome">WÄHLEN SIE EIN FAHRZEUG:</p>
 		</div>
@@ -65,10 +68,22 @@ $(document).ready(function(){
 			<button class="loginsubmit" type="submit">ANMELDEN</button>
 		</div>
 	</div>
-			<!-- MAIN APP MARKUP BEGINS HERE -->
-			<div class="motorload" title="Motorlast">
-			<p class="motorload_label" title="Motorlast">0%</p>
+	<div class="caraddbody">
+		<div class="loginrow">
+			<p class="welcome">Fügen Sie ein Fahrzeug hinzu:</p>
+			<p class="info"></p>
 		</div>
+		<div class="loginrow addcarrow">
+			<div class="label">Onboard Unit ID:</div><input class="loginfield" type="obuid">
+		</div>
+		<div class="loginrow">
+			<button class="newcarsubmit" type="submit">HINZUFÜGEN</button>
+		</div>
+	</div>
+			<!-- MAIN APP MARKUP BEGINS HERE -->
+	<div class="motorload" title="Motorlast">
+		<p class="motorload_label" title="Motorlast">0%</p>
+	</div>
 	<header class="banner">
 		<div class="btnbar">
 			<button tabindex="-1" id="btnnotifier" title="Benachrichtigungen anzeigen"></button>
@@ -77,7 +92,8 @@ $(document).ready(function(){
 			<button tabindex="-1" id="btnrecord" title="Videoaufnahme starten">REC</button>
 			<button tabindex="-1" id="btndownload" title="Video herunterladen"></button>
 			<button tabindex="-1" id="btnscreenshot" title="Screenshot"></button>
-			<button tabindex="-1" id="btncommands" title="Befehl �bermitteln"></button>
+			<button tabindex="-1" id="btndownloadscreen" title="Screenshot	 herunterladen"></button>
+			<button tabindex="-1" id="btncommands" title="Befehl übermitteln"></button>
 			<button tabindex="-1" id="btnlogout" title="Abmelden"></button>
 		</div>
 		<div class="ridedata">
@@ -160,11 +176,11 @@ $(document).ready(function(){
 					</div>
 					<div class="controlelement airtemp" title="Ansaugluft Temperatur">
 						<p class="controllabel target_airtemp">-</p>
-						<p class="controlunit">(�C)</p>
+						<p class="controlunit">(°C)</p>
 					</div>
-					<div class="controlelement coolingliq" title="K�hlfl�ssigkeit Temperatur">
+					<div class="controlelement coolingliq" title="Kühlflüssigkeit Temperatur">
 						<p class="controllabel target_coolingliq">-</p>
-						<p class="controlunit">(�C)</p>
+						<p class="controlunit">(°C)</p>
 					</div>
 					<div class="controlelement fuelpress" title="Kraftstoffdruck">
 						<p class="controllabel target_fuelpress">-</p>

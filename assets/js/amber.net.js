@@ -46,12 +46,13 @@ amber.net.messageReceived = function(socketPackage){
 	try{
 		// try parsing JSON directly from incoming data
 		var incoming = JSON.parse(socketPackage.data);
-		if(i < 5)
-			console.log(incoming);
-		i++;
 		switch(incoming.id){
 		case "streamClosed":
 			amber.ui.closeVideoStream();
+			break;
+		case "addCarACK":
+			console.log(incoming);
+			this.addCarSuccess();
 			break;
 		case "telemetry":
 			this.processCockpitData(incoming.data);
@@ -72,6 +73,12 @@ amber.net.messageReceived = function(socketPackage){
 		case "stopRecordACK":
 			this.recordingStopped();
 			break;
+		case "screenshotACK":
+			this.screenshotDone();
+			break;
+		case "carsACK":
+			this.carsSuccess(incoming.data.vehicles);
+			break;
 		case "error":
 			console.log("Error: "+incoming.data);
 			// initiate error protocol:
@@ -82,6 +89,7 @@ amber.net.messageReceived = function(socketPackage){
 			}
 		}
 	} catch (SyntaxError){
+		console.log(SyntaxError);
 		console.log("Unknown dataset:");
 		console.log(socketPackage);
 	}
@@ -142,7 +150,7 @@ amber.net.stopDataStream = function(){
 	var data = {};
 	data.callID = this.Param.STOPSTREAM;
 	data.data = {
-			carID : amber.cars.Current.id,
+			carID : amber.carID,
 			userID : amber.userID
 	};
 	this.AmberSocket.send(JSON.stringify(data));	
@@ -227,12 +235,45 @@ amber.net.logoutDone = function(){
 	console.log("User logged out!");
 	amber.ui.openLogin();
 };
+// add a car to database
+amber.net.addCar = function(){
+	var data = {};
+	data.callID = this.Param.ADDCAR;
+	data.data = {
+		carID : amber.ui.getNewCarID(),
+		userID : amber.userID
+	};
+	this.AmberSocket.send(JSON.stringify(data));
+};
+// car successfully added!
+amber.net.addCarSuccess = function(){
+	amber.ui.logBootStatus("Fahrzeug wurde hinzugefügt!");
+	amber.net.reqCars();
+};
 // request list of cars available to user
 amber.net.reqCars = function(){
 	var data = {};
 	data.callID = this.Param.GETCARS;
+	data.data = amber.userID;
 	this.AmberSocket.send(JSON.stringify(data));
 };
-// if call for cars produced an error:
-amber.net.carsError = function(data){
+// cars received!
+amber.net.carsSuccess = function(carList){
+	console.log(carList);
+	amber.ui.appendCars(carList);
+};
+// request a screenshot with position data
+amber.net.reqScreenshot = function(){
+	var data = {};
+	data.callID = this.Param.GETSCREENSHOT;
+	data.data = {
+		carID : amber.cars.Current.id,
+		userID : amber.userID
+	};
+	this.AmberSocket.send(JSON.stringify(data));
+};
+// enable screenshot download button
+amber.net.screenshotDone = function(){
+	console.log("Screenshot done!");
+	amber.ui.toggleDownloadBtnScreen();
 };

@@ -36,11 +36,17 @@ $(document).ready(function(){
 	});
 	// make a screenshot from the latest image blob sent
 	$(document).on("click","#btnscreenshot",function(){
-		amber.media.screenshot();
+		amber.net.reqScreenshot();
 	});
 	// start download of recorded video
 	$(document).on("click","#btndownload",function(){
 		amber.media.downloadVideo();
+		amber.ui.toggleDownloadBtn();
+	});
+	// start download of screenshot
+	$(document).on("click","#btndownloadscreen",function(){
+		amber.media.screenshot();
+		amber.ui.toggleDownloadBtnScreen();
 	});
 	// open commands view
 	$(document).on("click","#btncommands",function(){
@@ -54,6 +60,14 @@ $(document).ready(function(){
 	$(document).on("click",".command",function(){
 		amber.net.reqSendCommand($(this).attr("command"));
 		amber.ui.commandPicked();
+	});
+	// add a car to the database
+	$(document).on("click","#btnaddcar",function(){
+		amber.ui.toggleAddCar();
+	});
+	// submit new car obu id to save in DB:
+	$(document).on("click",".newcarsubmit",function(){
+		amber.net.addCar();
 	});
 });
 
