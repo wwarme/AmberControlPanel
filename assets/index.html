@@ -28,7 +28,7 @@ $(document).ready(function(){
 // 	$('.loginfade, .loginbody, .loginmaterial').toggle();
 // 	$('.loginbody, .carpickerbody').toggle();
 	amber.ui.initLiveView();
-	amber.net.initSocket();	 
+	amber.net.initSocket();	 	
 });
 </script>
 </head>
@@ -120,14 +120,24 @@ $(document).ready(function(){
 			<div class="command" command="imageSwap">
 				<p class="commandlabel">Video Bildwechsel</p>
 			</div>
+			<div class="command" command="toggleBendDetection">
+				<p class="commandlabel">Kurvenerkennung an/aus</p>
+			</div>
 	</div>
 	<div class="center">
 		<p class="waitingforstream">Warte auf Videostream</p>
 		<div class="notifier">
 			<ul id="noticontainer">
-				<li class="notification">lorem ipsum dolorempor invidunt ut labore et dolore magna aliquyam erat, </li>
+				<li class="notification">
+					<ul class="notiproperties">
+						<li>Test</li>
+						<li class="notipic"></li>
+					</ul>
+				</li>
 			</ul>
 		</div>
+			<p class="username">wwarme</p>
+		<p class="vehicle">BMW i8</p>
 		<div id="mapcontainer">
 			<div id="mapview"></div>
 		</div>

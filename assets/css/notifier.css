@@ -31,3 +31,10 @@
 	list-style-type: none;
 	margin-left: 5px;
 }
+
+.notipic {
+	background: url(../pics/Download.png);
+	background-position: 50% 50%;
+	background-size: 45px 30px;
+	background-repeat: no-repeat;
+}

@@ -96,11 +96,20 @@ amber.ui.openLogin = function(s){
 };
 // append a notification to the notification center
 amber.ui.appendNotification = function(data){
+	console.log(data);
 	var noti = '<li class="notification">';
 		noti+= '<ul class="notiproperties">';
-		noti+= '<li>Typ: '+data.eventType+'</li>';
+		noti+= '<li>Typ: '+data.eventMessage+'</li>';
 		noti+= '<li>Lat: '+data.latitude+'</li>';
 		noti+= '<li>Long: '+data.longitude+'</li>';
+		if(data.eventImage){
+			var imgUrl = "data:image/png;base64,"+data.eventImage;
+			noti+= '<li class="notipic" style="';
+			noti+= 'background: url('+imgUrl+');';
+			noti+= 'background-position: 0 0 ;';
+			noti+= 'background-repeat: no-repeat;';
+			noti+= 'height: 150px;">';
+		}
 		noti+= '</ul></li>';
 	$('#noticontainer').append(noti);
 };
@@ -140,7 +149,7 @@ amber.ui.carPicked = function(element){
 	$('#noticontainer').empty();
 	for(var c = 0; c < amber.cars.carList.length; c++){
 		// find the car in the carlist:
-		if(amber.cars.carList[c].vehicleID = amber.carID){
+		if(amber.cars.carList[c].vehicleID == amber.carID){
 			// push all notifications into the array
 			amber.cars.carList[c].eventList.forEach(function(noti){
 				amber.ui.appendNotification(noti);
@@ -155,6 +164,9 @@ amber.ui.carPicked = function(element){
 	amber.locals.resetRoute();
 	// close car picker
 	this.closeCarPicker();
+	$('.vehicle').text(element.attr('carname'));
+	$('username').text(amber.userName);
+	
 	this.FX.lightsON();
 };
 // enable video download button: 

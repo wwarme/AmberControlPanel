@@ -68,6 +68,18 @@ div.center {
 	top: 50%;
 }
 
+.username {
+	margin-top: 0%;
+	position: absolute;
+	margin-left: 1%;
+}
+
+.vehicle {
+	margin-top: 0%;
+	position: absolute;
+	margin-left: 13%;
+}
+
 #videocontainer, #mapcontainer {
 	position: absolute;
 	width: 100%;

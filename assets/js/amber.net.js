@@ -46,6 +46,7 @@ amber.net.messageReceived = function(socketPackage){
 	try{
 		// try parsing JSON directly from incoming data
 		var incoming = JSON.parse(socketPackage.data);
+//		console.log(incoming.id);
 		switch(incoming.id){
 		case "streamClosed":
 			amber.ui.closeVideoStream();
@@ -115,17 +116,19 @@ amber.net.processCockpitData = function(incoming){
 	amber.cars.Current = incoming;
 	// write telemetry data into UI
 	amber.ui.setArmatures(incoming);
-	// update cars position
+	// update cars position (done every 30 "Ticks") 
 	amber.locals.updateMarker();
 	// notification incoming?
-	if(incoming.notification != null)
-		amber.ui.appendNotification(incoming.notification);
+	if(incoming.notification != null){
+		this.processNotification(incoming.notification);
+	}
+		
 };
 // process incoming notifications
 amber.net.processNotification = function(incoming){
 	amber.ui.appendNotification(incoming);
 	amber.ui.notifierToggled = false;
-	amber.ui.FX.notifierON();
+	amber.ui.FX.notificationON();
 };
 
 /*
@@ -160,7 +163,7 @@ amber.net.reqSendCommand = function(command){
 	var data = {};
 	data.callID = this.Param.SENDCOMMAND;
 	data.data = {
-		carID : amber.cars.Current.id,
+		carID : amber.carID,
 		command : command
 	};
 	this.AmberSocket.send(JSON.stringify(data));
@@ -233,6 +236,7 @@ amber.net.reqLogout = function(){
 // logout successful - return to login, streaming stopped on server side
 amber.net.logoutDone = function(){
 	console.log("User logged out!");
+	amber.ui.logBootStatus("Sie wurden erfolgreich abgemeldet.");
 	amber.ui.openLogin();
 };
 // add a car to database

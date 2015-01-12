@@ -15,6 +15,7 @@ amber.locals.RouteLayer;
 amber.locals.Marker = {};
 amber.locals.zoom = 16;
 amber.locals.LongLat = {};
+amber.locals.GPSTick = 0;
 // static for testing
 amber.locals.LongLat.lon = 13.63286;
 amber.locals.LongLat.lat = 52.31954;
@@ -122,7 +123,7 @@ amber.net.reqScreenshot;		//.done
 amber.net.AmberSocket = {};
 //amber.net.Param - params for socket.send commands
 amber.net.Param = {};
-amber.net.Param.IP = "192.168.0.23";
+amber.net.Param.IP = "192.168.137.122";
 amber.net.Param.SOCKETADRESS = "ws://"+amber.net.Param.IP+":3001/websocket/";
 amber.net.Param.DOWNLOADADRESS = "http://"+amber.net.Param.IP+":3001/";
 amber.net.Param.SCREEN = "screenshot";
