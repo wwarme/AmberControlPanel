@@ -19,8 +19,6 @@ amber.locals.drawMaps = function(element){
 		console.log("Map not available due to network issues");
 		this.showErrorLayer(element);
 	}
-	// init osm layers 
-	
 };
 // draw a particular map for amber
 amber.locals.drawMap = function() {
@@ -82,6 +80,7 @@ amber.locals.resetRoute = function(){
 // move the marker to the long and lat given in amber.locals.LongLat
 amber.locals.updateMarker = function(){
 	if(this.AmberMap){
+		// only update position every 30 ticks (packages received)!
 		if(this.GPSTick == 30){
 			this.GPSTick = 0;
 			// make array for 2 points 

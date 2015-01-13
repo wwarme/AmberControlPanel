@@ -1,4 +1,3 @@
-
 // initiate websocket connection
 amber.net.initSocket = function(){
 	this.AmberSocket = new WebSocket(this.Param.SOCKETADRESS);
@@ -48,6 +47,7 @@ amber.net.messageReceived = function(socketPackage){
 		var incoming = JSON.parse(socketPackage.data);
 //		console.log(incoming.id);
 		switch(incoming.id){
+		// different ids = different type of data/information:
 		case "streamClosed":
 			amber.ui.closeVideoStream();
 			break;
@@ -89,6 +89,7 @@ amber.net.messageReceived = function(socketPackage){
 				break;
 			}
 		}
+	// catch errors that may occur during JSON parsing: 
 	} catch (SyntaxError){
 		console.log(SyntaxError);
 		console.log("Unknown dataset:");
@@ -103,7 +104,7 @@ amber.net.processLiveStreamData = function(data){
 	// set the image as src-attribute
 	if($(amber.ui.liveViewL).is(":visible")) // small view in the corner
 	// the binary strings can be set as src urls directly
-	// parsing gets done by html/javascript engine internally
+	// parsing done by html/javascript engine of browser, internally
 		amber.ui.liveViewL.src = amber.media.scene;
 	if($(amber.ui.liveViewS).is(":visible")) // main video view
 		amber.ui.liveViewS.src = amber.media.scene;
@@ -116,10 +117,11 @@ amber.net.processCockpitData = function(incoming){
 	amber.cars.Current = incoming;
 	// write telemetry data into UI
 	amber.ui.setArmatures(incoming);
-	// update cars position (done every 30 "Ticks") 
+	// update cars position (done every 30 "Ticks", see amber.locals.js) 
 	amber.locals.updateMarker();
 	// notification incoming?
 	if(incoming.notification != null){
+		// append notification to notif.center
 		this.processNotification(incoming.notification);
 	}
 		
@@ -128,6 +130,7 @@ amber.net.processCockpitData = function(incoming){
 amber.net.processNotification = function(incoming){
 	amber.ui.appendNotification(incoming);
 	amber.ui.notifierToggled = false;
+	// alarm user about new notification!
 	amber.ui.FX.notificationON();
 };
 

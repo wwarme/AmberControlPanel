@@ -20,6 +20,8 @@ amber.ui.switchLiveView = function(){
 };
 // switch the map views 
 amber.ui.toggleMaps = function(){
+	// draw the map into a particular container, 
+	// depending on which map element is visible
 	var maps = $('#map, #mapview').toggle();
 	if($(maps[0]).is(":visible"))
 		amber.locals.drawMaps($(maps[0]).attr("id"));
@@ -30,7 +32,7 @@ amber.ui.toggleMaps = function(){
 amber.ui.toggleLiveViews = function(){
 	$('#videosmall, #videocontainer').toggle();
 };
-// show request stats, connectivity and data during login
+// show request stats, connectivity, data during login, general feedback to user
 amber.ui.logBootStatus = function(message){
 	$('.info').text(message);
 };
@@ -60,12 +62,17 @@ amber.ui.openCarPicker = function(){
 };
 // open dialog to add car to database
 amber.ui.toggleAddCar = function(){
-	console.log("toggled!");
+	// if car adding dialog is already open
 	if($('.caraddbody').is(':visible')){
+		// fade out dialog and fade in car picker again
 		$('.caraddbody').fadeOut("fast");
 		$('.carpickerbody').fadeIn("fast");
 	} else {
+		// if dialog is not visible, fadeout car picker
+		// car picker is the only position in ui to access 
+		// car adding dialog!
 		$('.carpickerbody').fadeOut();
+		// fade in dialog
 		$('.loginfade, .loginmaterial, .caraddbody').fadeIn("fast");
 	}
 };
@@ -96,13 +103,16 @@ amber.ui.openLogin = function(s){
 };
 // append a notification to the notification center
 amber.ui.appendNotification = function(data){
-	console.log(data);
+	console.log(data.eventType);
+	// notification is concatenated as a string representative
+	// of the resulting DOM element
 	var noti = '<li class="notification">';
 		noti+= '<ul class="notiproperties">';
 		noti+= '<li>Typ: '+data.eventMessage+'</li>';
 		noti+= '<li>Lat: '+data.latitude+'</li>';
 		noti+= '<li>Long: '+data.longitude+'</li>';
 		if(data.eventImage){
+			// append image to notification if possible:
 			var imgUrl = "data:image/png;base64,"+data.eventImage;
 			noti+= '<li class="notipic" style="';
 			noti+= 'background: url('+imgUrl+');';
@@ -111,9 +121,11 @@ amber.ui.appendNotification = function(data){
 			noti+= 'height: 150px;">';
 		}
 		noti+= '</ul></li>';
+		// append notification
 	$('#noticontainer').append(noti);
 };
 // append cars to car picker dialog (data is considered a list)
+// same principle like in appendNotification
 amber.ui.appendCars = function(data){
 	console.log("Appending cars to car picker...");
 	// clean from older car elements to avoid duplicates
@@ -132,7 +144,7 @@ amber.ui.appendCars = function(data){
 					 +'carid="'+car.vehicleID+'">';
 		element += '<p>'+car.vehicleName+'</p>';
 		element += '</li>';
-		// push the new elements string representative in a list
+		// push the new DOM elements string representative in a list
 		concat.push(element);
 	}
 	// append the car elements by concatenating the single strings

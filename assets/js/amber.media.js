@@ -1,4 +1,7 @@
-// amber.media namespace
+/* 
+ *amber.media namespace
+ */
+// do a screenshot, resp. open recieved screenshot in new tab to save
 amber.media.screenshot = function(){
 	window.open(amber.net.Param.DOWNLOADADRESS+amber.net.Param.SCREEN);
 };

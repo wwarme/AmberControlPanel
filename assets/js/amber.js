@@ -1,4 +1,7 @@
-// complete javascript reference for amber client web application
+/*
+ * complete javascript reference for amber client web application
+ */
+
 // .done => implemented as function in corresponding name space!
 var amber = {};
 amber.userID;
